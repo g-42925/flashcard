@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.ng-dropdown-panel {
+  @apply z-50 rounded-md bg-white;
+  @apply mt-2 mb-2;
+}
+.ng-option {
+  @apply p-3;
+  @apply rounded-md
+}
+.ng-option-marked {
+  @apply bg-black;
+  @apply text-white;
+}

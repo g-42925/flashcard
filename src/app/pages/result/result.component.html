@@ -1,0 +1,28 @@
+<table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
+  <thead class="text-gray-700">
+    <tr>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Re-type</th>
+    </tr>
+  </thead>
+  <tbody class="text-gray-800">
+  	@for(i of whs.wrong; let index = $index; track i ){
+  	  <tr class="border-t border-gray-200 hover:bg-gray-50">
+        <td class="px-6 py-4">{{i.original}}</td>
+        <td (click)="reveal(i.id)">{{romajiReveal && revealId === i.id ? i.romaji:'...'}}</td>
+        <td class="px-6 py-4">
+        	<input 
+            #retype
+            [id]="i.id"
+        	  type="text"
+        	  placeholder="retype romaji"
+        	  [ngClass]="correctList.includes(i.romaji) ? 'border-green-900':''"
+        	  class="border-2 border-black w-full rounded-md p-3"
+        	  (keyup)="onChange($event,i.romaji,index)"
+        	/>
+        </td>
+      </tr>	
+  	}
+  </tbody>
+</table>

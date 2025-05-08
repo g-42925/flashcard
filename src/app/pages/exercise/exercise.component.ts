@@ -1,0 +1,120 @@
+import { Router } from '@angular/router'
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { Component,OnInit,inject,HostListener } from '@angular/core';
+
+@Component({
+  selector: 'app-exercise',
+  templateUrl: './exercise.component.html',
+  styleUrl: './exercise.component.css',
+  imports: [
+    CommonModule,
+    FormsModule,
+    HttpClientModule,
+    NgSelectModule
+  ],
+})
+export class ExerciseComponent implements OnInit {
+  router = inject(Router)
+  index = 0
+  newWord = ''
+  words:any[] = []
+  inSubmitProcess = false
+  dropDownValue:any[] = []
+  updateMode = false
+  submitMode = false
+  http = inject(HttpClient)
+  updateValue:Update = {}
+  forgottenWords:any[] = []
+
+  submit(){   
+    this.inSubmitProcess = true
+ 
+
+    var [original,romaji,mean] = this.newWord.split(' - ')
+
+    var submitParams = {original,romaji,mean,addedAt:'5/7'}
+
+          
+    this.http.post('http://localhost:8000/',submitParams).subscribe(r => {
+      this.newWord = ''
+      this.inSubmitProcess = false
+    });
+  }
+
+  update(){
+    this.http.put('http://localhost:8000/',this.updateValue).subscribe(r => {
+      alert('updated')
+      this.updateMode = false
+    });
+  }
+
+  ngOnInit(){
+    this.http.get<any[]>('http://localhost:8000/?category=all').subscribe(r => {
+      this.words = r
+      this.updateValue = {
+        ...r[0]
+      }
+      this.dropDownValue = r.map(w => {
+        return `${w.original} (${w.romaji})`
+      })
+    });
+  }
+
+  goTo(value:any){
+    this.index = this.dropDownValue.indexOf(value)
+  }
+
+  setForget(){
+    this.forgottenWords = [
+      ...this.forgottenWords,
+      this.words[this.index]
+    ]
+  }
+
+  setNewIndex(eventType:string){
+    if(eventType === 'previously'){
+      this.index = this.index-1
+    }
+    else{
+      if(this.index < this.words.length -1){
+        this.index = this.index+1
+      }
+      else{
+        this.index = 0
+      }
+    }
+
+    this.updateValue = {
+      ...this.words[this.index]
+    }
+  }
+
+  viewResult(){
+    var wrong = this.forgottenWords
+    var wrongId = this.forgottenWords.map(
+      w => w.id
+    )
+    var right = this.words.filter(w => {
+      return !wrongId.includes(w.id)
+    })
+    this.router.navigateByUrl('/result',{state:{wrong,right}});
+  }
+
+  @HostListener('window:keydown', ['$event']) handleKeyDown(event: KeyboardEvent) {
+    if (event.key === 'Shift') {
+      alert('ok')
+    }
+  }
+}
+
+
+interface Update{
+  id?:string,
+  original?:string,
+  romaji?:string,
+  mean?:string,
+  addedAt?:string
+}
