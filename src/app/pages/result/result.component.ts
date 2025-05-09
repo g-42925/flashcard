@@ -11,7 +11,7 @@ import { Component,OnInit,ViewChildren,QueryList,ElementRef,inject} from '@angul
 export class ResultComponent{
   router = inject(Router)
   correctList:any[] = []
-  whs:{wrong:any[],right:any[]} = window.history.state
+  whsState:any[] = window.history.state.state
   @ViewChildren('retype') retypeFields!: QueryList<ElementRef>;
 
   romajiReveal = false
@@ -23,8 +23,8 @@ export class ResultComponent{
   }
 
   onChange(event:any,romaji:string,index:number){
-    if(event.target.value === romaji && index != this.whs.wrong.length -1){
-      var nextIndexWord = this.whs.wrong[index + 1]
+    if(event.target.value === romaji && index != this.whsState.length -1){
+      var nextIndexWord = this.whsState[index + 1]
       var el = this.retypeFields.find(rF => {
         var {id} = rF.nativeElement
         return id === nextIndexWord.id
@@ -40,7 +40,7 @@ export class ResultComponent{
       ]
     }
 
-    if(event.target.value === romaji && index === this.whs.wrong.length -1){
+    if(event.target.value === romaji && index === this.whsState.length -1){
       this.router.navigateByUrl('/exercise')
     }
     

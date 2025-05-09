@@ -46,8 +46,13 @@ export class ExerciseComponent implements OnInit {
 
   update(){
     this.http.put('http://localhost:8000/',this.updateValue).subscribe(r => {
-      alert('updated')
       this.updateMode = false
+    });
+  }
+
+  delete(id:string){
+    this.http.delete(`http://localhost:8000/${id}`).subscribe(r => {
+      window.location.reload()
     });
   }
 
@@ -93,20 +98,12 @@ export class ExerciseComponent implements OnInit {
   }
 
   viewResult(){
-    var wrong = this.forgottenWords
-    var wrongId = this.forgottenWords.map(
-      w => w.id
-    )
-    var right = this.words.filter(w => {
-      return !wrongId.includes(w.id)
-    })
-    this.router.navigateByUrl('/result',{state:{wrong,right}});
+    var state = {state:this.forgottenWords}
+    this.router.navigateByUrl('/result',state);
   }
 
   @HostListener('window:keydown', ['$event']) handleKeyDown(event: KeyboardEvent) {
-    if (event.key === 'Shift') {
-      alert('ok')
-    }
+    if(event.key === 'Shift') this.setNewIndex('increment')
   }
 }
 
