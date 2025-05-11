@@ -2,10 +2,10 @@
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-col justify-center text-center bg-black relative">
       <span class="text-white text-9xl">
-        {{words[index].original}}
+        {{words[index]?.original}}
       </span>
       <span class="text-white text-4xl" *ngIf="index > 0">
-        {{words[index -1].original}} ({{words[index -1].romaji}})
+        {{words[index -1]?.original}} ({{words[index -1]?.romaji}})
       </span>
       <button type="button" class="absolute right-3 top-3" (click)="updateMode=true">
       	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="text-white size-6">
@@ -55,7 +55,7 @@
   <div *ngIf="submitMode" class="absolute w-full h-full flex flex-col justify-center ">
     <form (submit)="submit()" class="relative rounded-md ml-auto mr-auto bg-white shadow-3xl rounded-md p-6 flex flex-col gap-3">
     	<h1>Submit</h1>
-      <input #word [(ngModel)]="newWord" name="newWord" type="text" placeholder="submit new word here" class="p-3 rounded-md border-2 border-black">
+      <input (drop)="onPaste($event)" #word [(ngModel)]="newWord" name="newWord" type="text" placeholder="submit new word here" class="p-3 rounded-md border-2 border-black">
       <button [disabled]="inSubmitProcess" type="submit" class="p-3 bg-black text-white">{{inSubmitProcess ? 'please wait':'submit'}}</button>
       <button type="button" (click)="submitMode=false" class="absolute top-5 right-5">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">

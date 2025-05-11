@@ -28,20 +28,33 @@ export class ExerciseComponent implements OnInit {
   http = inject(HttpClient)
   updateValue:Update = {}
   forgottenWords:any[] = []
+  previousSubmitted = ''
 
   submit(){   
-    this.inSubmitProcess = true
- 
+    this.inSubmitProcess = true 
 
     var [original,romaji,mean] = this.newWord.split(' - ')
 
     var submitParams = {original,romaji,mean,addedAt:'5/7'}
 
-          
-    this.http.post('http://localhost:8000/',submitParams).subscribe(r => {
-      this.newWord = ''
-      this.inSubmitProcess = false
-    });
+    var [filter] = this.words.filter(word => word.original === original)
+
+    if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
+      next : r => {
+        this.inSubmitProcess = false
+        this.previousSubmitted = _params
+        setTimeout(() => {
+          this.newWord = ''
+        },500)
+      },
+      error:e => {
+        alert(e.message)
+      }
+    })
+
+    if(filter){
+      alert('already exist')
+    }
   }
 
   update(){
@@ -104,6 +117,20 @@ export class ExerciseComponent implements OnInit {
 
   @HostListener('window:keydown', ['$event']) handleKeyDown(event: KeyboardEvent) {
     if(event.key === 'Shift') this.setNewIndex('increment')
+  }
+
+  onPaste(e: any){
+    e.preventDefault();
+    const text = event.dataTransfer?.getData('text');
+    if(text != this.previousSubmitted){
+      this.newWord = text
+      this.submit()
+    }
+    else{
+      alert('error')
+    }
+
+    
   }
 }
 
