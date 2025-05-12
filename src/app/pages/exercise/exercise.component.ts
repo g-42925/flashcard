@@ -30,32 +30,66 @@ export class ExerciseComponent implements OnInit {
   forgottenWords:any[] = []
   previousSubmitted = ''
 
-  submit(){   
+  async submit(params? : string[]){   
     this.inSubmitProcess = true 
 
-    var [original,romaji,mean] = this.newWord.split(' - ')
+    if(params){
+      const [original,romaji,mean] = params[0].split(' / ')
+      const submitParams = {original,romaji,mean,addedAt:'5/7'}
+      const [filter] = this.words.filter(word => word.original === original)
 
-    var submitParams = {original,romaji,mean,addedAt:'5/7'}
-
-    var [filter] = this.words.filter(word => word.original === original)
-
-    if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
-      next : r => {
-        this.inSubmitProcess = false
-        this.previousSubmitted = this.newWord
-        setTimeout(() => {
-          this.newWord = ''
-        },500)
-      },
-      error:e => {
-        alert(e.message)
+      if(params.length > 1){
+        if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
+          next:r => {
+            var f = params.filter((w,idx) => {
+              return idx > 0
+            })
+            this.submit(
+              f
+            )
+          },
+          error:e => {
+            alert(e.message)
+          }
+        })
+        if(filter){
+          alert('this word is already exist')
+          var f = params.filter((w,idx) => {
+            return idx > 0
+          })
+          this.submit(
+            f
+          )
+        }
       }
-    })
 
-    if(filter){
-      alert('already exist')
+      if(params.length < 2){
+        if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
+          next:r => {
+            this.inSubmitProcess = false
+            this.newWord = ''
+          },
+          error:e => {
+            this.inSubmitProcess = false
+            this.newWord = ''
+            alert(e.message)
+          }
+        })
+
+        if(filter){
+          this.newWord = ''
+          this.inSubmitProcess = false
+          alert('this word is already exist')
+        }
+      }
+    }
+    
+    if(!params){
+      this.submit(this.newWord.split('\n'))
     }
   }
+
+  
 
   update(){
     this.http.put('http://localhost:8000/',this.updateValue).subscribe(r => {
@@ -75,8 +109,8 @@ export class ExerciseComponent implements OnInit {
       this.updateValue = {
         ...r[0]
       }
-      this.dropDownValue = r.map(w => {
-        return `${w.original} (${w.romaji})`
+      this.dropDownValue = r.map((w,index) => {
+        return `${index+1}. ${w.original} (${w.romaji})`
       })
     });
   }
@@ -115,22 +149,8 @@ export class ExerciseComponent implements OnInit {
     this.router.navigateByUrl('/result',state);
   }
 
-  @HostListener('window:keydown', ['$event']) handleKeyDown(event: KeyboardEvent) {
+  @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
     if(event.key === 'Shift') this.setNewIndex('increment')
-  }
-
-  onPaste(e: any){
-    e.preventDefault();
-    const text = e.dataTransfer?.getData('text');
-    if(text != this.previousSubmitted){
-      this.newWord = text
-      this.submit()
-    }
-    else{
-      alert('error')
-    }
-
-    
   }
 }
 
