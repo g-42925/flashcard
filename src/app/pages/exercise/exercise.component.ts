@@ -42,7 +42,7 @@ export class ExerciseComponent implements OnInit {
     if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
       next : r => {
         this.inSubmitProcess = false
-        this.previousSubmitted = _params
+        this.previousSubmitted = this.newWord
         setTimeout(() => {
           this.newWord = ''
         },500)
@@ -121,7 +121,7 @@ export class ExerciseComponent implements OnInit {
 
   onPaste(e: any){
     e.preventDefault();
-    const text = event.dataTransfer?.getData('text');
+    const text = e.dataTransfer?.getData('text');
     if(text != this.previousSubmitted){
       this.newWord = text
       this.submit()
