@@ -1,7 +1,7 @@
 import { Router } from '@angular/router'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient,HttpClientModule } from '@angular/common/http';
+import { HttpClient,HttpClientModule,HttpHeaders } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Component,OnInit,inject,HostListener } from '@angular/core';
 
@@ -31,7 +31,10 @@ export class ExerciseComponent implements OnInit {
   previousSubmitted = ''
 
   async submit(params? : string[]){   
-    this.inSubmitProcess = true 
+    this.inSubmitProcess = true
+
+    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+
 
     if(params){
       const [original,romaji,mean] = params[0].split(' / ')
@@ -39,7 +42,7 @@ export class ExerciseComponent implements OnInit {
       const [filter] = this.words.filter(word => word.original === original)
 
       if(params.length > 1){
-        if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
+        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers}).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -64,7 +67,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post('http://localhost:8000/',submitParams).subscribe({
+        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers}).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
@@ -92,19 +95,24 @@ export class ExerciseComponent implements OnInit {
   
 
   update(){
-    this.http.put('http://localhost:8000/',this.updateValue).subscribe(r => {
+    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    this.http.put('http://localhost:8000/',this.updateValue,{headers}).subscribe(r => {
       this.updateMode = false
     });
   }
 
   delete(id:string){
-    this.http.delete(`http://localhost:8000/${id}`).subscribe(r => {
+    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    this.http.delete(`http://localhost:8000/${id}`,{headers}).subscribe(r => {
       window.location.reload()
     });
   }
 
   ngOnInit(){
-    this.http.get<any[]>('https://gfyomyuur.localto.net/?category=all').subscribe(r => {
+    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    const url = 'https://gfyomyuur.localto.net/?category=all'
+    
+    this.http.get<any[]>(url,{headers}).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
