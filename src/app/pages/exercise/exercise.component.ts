@@ -33,7 +33,7 @@ export class ExerciseComponent implements OnInit {
   async submit(params? : string[]){   
     this.inSubmitProcess = true
 
-    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
 
 
     if(params){
@@ -95,21 +95,21 @@ export class ExerciseComponent implements OnInit {
   
 
   update(){
-    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
     this.http.put('http://localhost:8000/',this.updateValue,{headers}).subscribe(r => {
       this.updateMode = false
     });
   }
 
   delete(id:string){
-    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
     this.http.delete(`http://localhost:8000/${id}`,{headers}).subscribe(r => {
       window.location.reload()
     });
   }
 
   ngOnInit(){
-    const headers = new HttpHeaders({'localtonet-skip-warning':true});
+    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
     const url = 'https://gfyomyuur.localto.net/?category=all'
     
     this.http.get<any[]>(url,{headers}).subscribe(r => {
