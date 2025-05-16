@@ -42,7 +42,7 @@ export class ExerciseComponent implements OnInit {
       const [filter] = this.words.filter(word => word.original === original)
 
       if(params.length > 1){
-        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers}).subscribe({
+        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers,withCredentials:true}).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -67,7 +67,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers}).subscribe({
+        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers,withCredentials:true}).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
@@ -96,14 +96,14 @@ export class ExerciseComponent implements OnInit {
 
   update(){
     const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
-    this.http.put('http://localhost:8000/',this.updateValue,{headers}).subscribe(r => {
+    this.http.put('http://localhost:8000/',this.updateValue,{headers,withCredentials:true}).subscribe(r => {
       this.updateMode = false
     });
   }
 
   delete(id:string){
     const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
-    this.http.delete(`http://localhost:8000/${id}`,{headers}).subscribe(r => {
+    this.http.delete(`http://localhost:8000/${id}`,{headers,withCredentials:true}).subscribe(r => {
       window.location.reload()
     });
   }
@@ -112,7 +112,7 @@ export class ExerciseComponent implements OnInit {
     const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
     const url = 'https://gfyomyuur.localto.net/?category=all'
     
-    this.http.get<any[]>(url,{headers}).subscribe(r => {
+    this.http.get<any[]>(url,{headers,withCredentials:true}).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
