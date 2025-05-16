@@ -20,16 +20,9 @@ export class ResultComponent{
   reveal(id:string):void{
     this.romajiReveal = true
     this.revealId = id
-    alert(x);
   }
 
-  test(age:number){
-    return new Promise((resolve,reject) => {
-      if(age > 17) resolve('ok')
-      if(ages < 17) reject('no')
-    })  
-  }
-
+  
   onChange(event:any,romaji:string,index:number){
     if(event.target.value === romaji && index != this.whsState.length -1){
       var nextIndexWord = this.whsState[index + 1]
