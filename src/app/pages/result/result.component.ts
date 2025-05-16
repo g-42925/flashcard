@@ -17,9 +17,17 @@ export class ResultComponent{
   romajiReveal = false
   revealId = ''
 
-  reveal(id:string){
+  reveal(id:string):void{
     this.romajiReveal = true
     this.revealId = id
+    alert(x);
+  }
+
+  test(age:number){
+    return new Promise((resolve,reject) => {
+      if(age > 17) resolve('ok')
+      if(ages < 17) reject('no')
+    })  
   }
 
   onChange(event:any,romaji:string,index:number){

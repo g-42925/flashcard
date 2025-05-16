@@ -104,7 +104,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.http.get<any[]>('http://localhost:8000/?category=all').subscribe(r => {
+    this.http.get<any[]>('https://gfyomyuur.localto.net/?category=all').subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]

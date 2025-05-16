@@ -3,6 +3,12 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictBindCallApply": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
     "outDir": "./out-tsc/app",
     "types": []
   },
