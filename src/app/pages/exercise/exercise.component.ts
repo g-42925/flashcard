@@ -108,11 +108,8 @@ export class ExerciseComponent implements OnInit {
     });
   }
 
-  ngOnInit(){
-    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
-    const url = 'https://gfyomyuur.localto.net/?category=all'
-    
-    this.http.get<any[]>(url,{headers,withCredentials:true}).subscribe(r => {
+  ngOnInit(){    
+    this.http.get<any[]>('https://68282ac66b7628c5291263ef.mockapi.io/cards').subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
