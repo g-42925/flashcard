@@ -40,9 +40,10 @@ export class ExerciseComponent implements OnInit {
       const [original,romaji,mean] = params[0].split(' / ')
       const submitParams = {original,romaji,mean,addedAt:'5/7'}
       const [filter] = this.words.filter(word => word.original === original)
+      const url = ''https://68282ac66b7628c5291263ef.mockapi.io/cards''
 
       if(params.length > 1){
-        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers,withCredentials:true}).subscribe({
+        if(!filter) this.http.post(url,submitParams).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -67,7 +68,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post('http://localhost:8000/',submitParams,{headers,withCredentials:true}).subscribe({
+        if(!filter) this.http.post(url,submitParams).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
