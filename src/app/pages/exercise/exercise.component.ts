@@ -64,7 +64,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post(url,submitParams).subscribe({
+        if(!filter) this.http.post(url,{original.romaji,mean}).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
