@@ -99,8 +99,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   delete(id:string){
-    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
-    this.http.delete(`http://localhost:8000/${id}`,{headers,withCredentials:true}).subscribe(r => {
+    this.http.delete(`https://68282ac66b7628c5291263ef.mockapi.io/cards/${id}`).subscribe(r => {
       window.location.reload()
     });
   }
