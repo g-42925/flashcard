@@ -29,6 +29,7 @@ export class ExerciseComponent implements OnInit {
   updateValue:Update = {}
   forgottenWords:any[] = []
   previousSubmitted = ''
+  url = 'https://0510c1091d3497.lhr.life'
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -36,10 +37,9 @@ export class ExerciseComponent implements OnInit {
     if(params){
       const [original,romaji,mean] = params[0].split(' / ')
       const [filter] = this.words.filter(word => word.original === original)
-      const url = 'https://68282ac66b7628c5291263ef.mockapi.io/cards'
 
       if(params.length > 1){
-        if(!filter) this.http.post(url,{original,romaji,mean}).subscribe({
+        if(!filter) this.http.post(this.url,{original,romaji,mean}).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -64,7 +64,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post(url,{original,romaji,mean}).subscribe({
+        if(!filter) this.http.post(this.url,{original,romaji,mean}).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
@@ -92,20 +92,19 @@ export class ExerciseComponent implements OnInit {
   
 
   update(){
-    const headers = new HttpHeaders({'localtonet-skip-warning':'ok'});
-    this.http.put('http://localhost:8000/',this.updateValue,{headers,withCredentials:true}).subscribe(r => {
+    this.http.put(this.url,this.updateValue).subscribe(r => {
       this.updateMode = false
     });
   }
 
   delete(id:string){
-    this.http.delete(`https://68282ac66b7628c5291263ef.mockapi.io/cards/${id}`).subscribe(r => {
+    this.http.delete(this.url).subscribe(r => {
       window.location.reload()
     });
   }
 
   ngOnInit(){    
-    this.http.get<any[]>('https://68282ac66b7628c5291263ef.mockapi.io/cards').subscribe(r => {
+    this.http.get<any[]>(this.url).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
