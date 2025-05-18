@@ -34,12 +34,24 @@ export class ExerciseComponent implements OnInit {
   async submit(params? : string[]){   
     this.inSubmitProcess = true
 
+    var headers = new HttpHeaders({
+      'ngrok-skip-browser-warning':'true'
+    })
+
+    var config = {
+      headers:headers,
+      withCredentials:true
+    }
+
+
+
     if(params){
       const [original,romaji,mean] = params[0].split(' / ')
       const [filter] = this.words.filter(word => word.original === original)
+      const postBody = {original,romaji,mean}
 
       if(params.length > 1){
-        if(!filter) this.http.post(this.url,{original,romaji,mean}).subscribe({
+        if(!filter) this.http.post(this.url,postBody,config).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -64,7 +76,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post(this.url,{original,romaji,mean}).subscribe({
+        if(!filter) this.http.post(this.url,postBody,config).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
