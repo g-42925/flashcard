@@ -29,7 +29,7 @@ export class ExerciseComponent implements OnInit {
   updateValue:Update = {}
   forgottenWords:any[] = []
   previousSubmitted = ''
-  url = 'https://0510c1091d3497.lhr.life'
+  url = 'https://rational-charming-hornet.ngrok-free.app/test'
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -103,8 +103,9 @@ export class ExerciseComponent implements OnInit {
     });
   }
 
-  ngOnInit(){    
-    this.http.get<any[]>(this.url).subscribe(r => {
+  ngOnInit(){ 
+    var headers = new HttpHeaders({'ngrok-skip-browser-warning':'true'})
+    this.http.get<any[]>(this.url,{headers,withCredentials:true}).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
