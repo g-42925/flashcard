@@ -31,7 +31,7 @@ export class ExerciseComponent implements OnInit {
   previousSubmitted = ''
   url = 'https://rational-charming-hornet.ngrok-free.app/test'
 
-  async submit(params? : string[],params2:any[]){   
+  async submit(params? : string[],params2?:any[]){   
     this.inSubmitProcess = true
 
     var headers = new HttpHeaders({
