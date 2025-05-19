@@ -105,19 +105,25 @@ export class ExerciseComponent implements OnInit {
 
   
   update(){
-    this.http.put(`${this.url}/${this.words[this.index].id}`,this.updateValue).subscribe(r => {
+    var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
+    var url = `${this.url}/${this.words[this.index].id}`
+    var config = {headers,withCredentials:true}
+   
+    this.http.put(url,config,this.updateValue).subscribe(r => {
       this.updateMode = false
     });
   }
 
   delete(id:string){
-    this.http.delete(`${this.url}/${id}`).subscribe(r => {
+    var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
+    this.http.delete(`${this.url}/${id}`,{headers,withCredentials:true}).subscribe(r => {
       window.location.reload()
     });
   }
 
-  ngOnInit(){ 
-    this.http.get<any[]>(this.url).subscribe(r => {
+  ngOnInit(){
+    var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
+    this.http.get<any[]>(this.url,{headers,withCredentials:true}).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
