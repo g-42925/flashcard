@@ -119,7 +119,7 @@ export class ExerciseComponent implements OnInit {
 
   ngOnInit(){ 
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'true'})
-    this.http.get<any[]>(this.url,{headers,withCredentials:true}).subscribe(r => {
+    this.http.get<any[]>(`${this.url}/?category=all`,{headers,withCredentials:true}).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
