@@ -104,9 +104,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   
-
   update(){
-    this.http.put(this.url,this.updateValue).subscribe(r => {
+    this.http.put(`${this.url}/${this.words[this.index].id}`,this.updateValue).subscribe(r => {
       this.updateMode = false
     });
   }
@@ -118,8 +117,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   ngOnInit(){ 
-    var headers = new HttpHeaders({'ngrok-skip-browser-warning':'true'})
-    this.http.get<any[]>(`${this.url}/?category=all`,{headers,withCredentials:true}).subscribe(r => {
+    this.http.get<any[]>(this.url).subscribe(r => {
       this.words = r
       this.updateValue = {
         ...r[0]
