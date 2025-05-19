@@ -29,7 +29,7 @@ export class ExerciseComponent implements OnInit {
   updateValue:Update = {}
   forgottenWords:any[] = []
   previousSubmitted = ''
-  url = 'https://rational-charming-hornet.ngrok-free.app/test'
+  url = 'https://rational-charming-hornet.ngrok-free.app'
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
