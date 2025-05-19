@@ -109,7 +109,7 @@ export class ExerciseComponent implements OnInit {
     var url = `${this.url}/${this.words[this.index].id}`
     var config = {headers,withCredentials:true}
    
-    this.http.put(url,config,this.updateValue).subscribe(r => {
+    this.http.put(url,this.updateValue,config).subscribe(r => {
       this.updateMode = false
     });
   }
