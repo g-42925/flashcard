@@ -112,7 +112,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   delete(id:string){
-    this.http.delete(this.url).subscribe(r => {
+    this.http.delete(`${this.url}/${id}`).subscribe(r => {
       window.location.reload()
     });
   }
