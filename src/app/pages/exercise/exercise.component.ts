@@ -31,7 +31,7 @@ export class ExerciseComponent implements OnInit {
   previousSubmitted = ''
   url = 'https://rational-charming-hornet.ngrok-free.app/test'
 
-  async submit(params? : string[]){   
+  async submit(params? : string[],params2:any[]){   
     this.inSubmitProcess = true
 
     var headers = new HttpHeaders({
@@ -43,11 +43,9 @@ export class ExerciseComponent implements OnInit {
       withCredentials:true
     }
 
-
-
     if(params){
       const [original,romaji,mean] = params[0].split(' / ')
-      const [filter] = this.words.filter(word => word.original === original)
+      const [filter] = this.params2.filter(word => word.original === original)
       const postBody = {original,romaji,mean}
 
       if(params.length > 1){
@@ -97,7 +95,10 @@ export class ExerciseComponent implements OnInit {
     }
     
     if(!params){
-      this.submit(this.newWord.split('\n'))
+      this.submit(
+        this.newWord.split('\n'),
+        this.newWords
+      )
     }
   }
 
