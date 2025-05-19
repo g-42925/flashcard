@@ -97,7 +97,7 @@ export class ExerciseComponent implements OnInit {
     if(!params){
       this.submit(
         this.newWord.split('\n'),
-        this.newWords
+        this.words
       )
     }
   }
