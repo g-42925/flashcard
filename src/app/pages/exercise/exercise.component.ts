@@ -128,7 +128,7 @@ export class ExerciseComponent implements OnInit {
         r
       )
       this.updateValue = {
-        ...r[0]
+        this.words[0]
       }
       this.dropDownValue = r.map((w,index) => {
         return `${index+1}. ${w.original} (${w.romaji})`
