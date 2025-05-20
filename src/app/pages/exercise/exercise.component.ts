@@ -171,6 +171,10 @@ export class ExerciseComponent implements OnInit {
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
     if(event.key === 'Shift') this.setNewIndex('increment')
   }
+
+  tidy(){
+    this.newWord = this.newWord.replace(/\n{2,}/g, "\n")
+  }
 }
 
 
