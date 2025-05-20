@@ -1,3 +1,4 @@
+import { shuffle } from 'lodash'
 import { Router } from '@angular/router'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -124,7 +125,9 @@ export class ExerciseComponent implements OnInit {
   ngOnInit(){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
     this.http.get<any[]>(this.url,{headers,withCredentials:true}).subscribe(r => {
-      this.words = r
+      this.words = shuffle(
+        r
+      )
       this.updateValue = {
         ...r[0]
       }
@@ -169,7 +172,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
-    if(event.key === 'Shift') this.setNewIndex('increment')
+    if(event.Key === 'Arrowleft') this.setNewIndex('decrement')
+    if(event.key === 'Arrowright') this.setNewIndex('increment')
   }
 
   tidy(){
