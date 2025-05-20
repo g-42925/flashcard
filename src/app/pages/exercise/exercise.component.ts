@@ -172,8 +172,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
-    if(event.key === 'Arrowleft') this.setNewIndex('decrement')
-    if(event.key === 'Arrowright') this.setNewIndex('increment')
+    if(event.key === 'ArrowLeft') this.setNewIndex('decrement')
+    if(event.key === 'ArrowRight') this.setNewIndex('increment')
   }
 
   tidy(){
