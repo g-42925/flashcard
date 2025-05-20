@@ -2,7 +2,7 @@ import { shuffle } from 'lodash'
 import { Router } from '@angular/router'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient,HttpClientModule,HttpHeaders } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Component,OnInit,inject,HostListener } from '@angular/core';
 
@@ -13,7 +13,6 @@ import { Component,OnInit,inject,HostListener } from '@angular/core';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
     NgSelectModule
   ],
 })
@@ -168,7 +167,7 @@ export class ExerciseComponent implements OnInit {
 
   viewResult(){
     var state = {state:this.forgottenWords}
-    this.router.navigateByUrl('/result',state);
+    this.router.navigateByUrl('/result',{state});
   }
 
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
