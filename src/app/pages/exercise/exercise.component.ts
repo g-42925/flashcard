@@ -214,5 +214,6 @@ interface Update{
   original?:string,
   romaji?:string,
   mean?:string,
-  addedAt?:string
+  addedAt?:string,
+  hiragana:string
 }
