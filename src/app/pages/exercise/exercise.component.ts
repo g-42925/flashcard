@@ -245,7 +245,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   getDropDownValue(){
-    return this.map((w,index) => {
+    return this.words.map((w,index) => {
       return `${index+1}. ${w.original} (${w.romaji})`
     })
   }
