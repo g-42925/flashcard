@@ -54,9 +54,13 @@ export class ExerciseComponent implements OnInit {
       if(params.length > 1){
         if(!filter) this.http.post<any>(this.source,submitParameter,config).subscribe({
           next:r => {
+            var [target] = (r as any[]).filter(w => {
+              return w.original === original
+            })
+
             this.words = [
               ...this.words,
-              filter
+              target
             ]
 
             var f = params.filter((w,idx) => {
@@ -84,9 +88,13 @@ export class ExerciseComponent implements OnInit {
       if(params.length < 2){
         if(!filter) this.http.post(this.source,submitParameter,config).subscribe({
           next:r => {
+            var [target] = (r as any[]).filter(w => {
+              return w.original === original
+            })
+
             this.words = [
               ...this.words,
-              filter
+              target
             ]
 
             this.inSubmitProcess = false
