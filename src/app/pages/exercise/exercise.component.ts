@@ -59,9 +59,11 @@ export class ExerciseComponent implements OnInit {
             })
 
             if(this.words.length < 1){
-              this.words = [
-                ...r as any[]
-              ]
+              this.words = r as any[]
+
+              this.updateValue = {
+                ...r[0]
+              }
             }
             else{
               this.words = [
@@ -102,9 +104,11 @@ export class ExerciseComponent implements OnInit {
             })
 
             if(this.words.length < 1){
-              this.words = [
-                ...r as any[]
-              ]
+              this.words = r as any[]
+
+              this.updateValue = {
+                ...r[0]
+              }
             }
             else{
               this.words = [
