@@ -76,8 +76,6 @@ export class ExerciseComponent implements OnInit {
               ]
             }
 
-            
-
             var f = params.filter((w,idx) => {
               return idx > 0
             })
@@ -94,9 +92,14 @@ export class ExerciseComponent implements OnInit {
           var f = params.filter((w,idx) => {
             return idx > 0
           })
-          this.submit(
-            f
-          )
+          if(f.length > 0){
+            this.submit(
+              f
+            )
+          }
+          else{
+            alert('done')
+          }
         }
       }
 
