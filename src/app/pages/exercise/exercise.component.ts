@@ -181,9 +181,6 @@ export class ExerciseComponent implements OnInit {
       this.updateValue = {
         ...this.words[0]
       }
-      this.dropDownValue = r.map((w,index) => {
-        return `${index+1}. ${w.original} (${w.romaji})`
-      })
     });
   }
 
@@ -245,6 +242,12 @@ export class ExerciseComponent implements OnInit {
 
   tidy(){
     this.newWord = this.newWord.replace(/\n{2,}/g, "\n")
+  }
+
+  getDropDownValue(){
+    return this.map((w,index) => {
+      return `${index+1}. ${w.original} (${w.romaji})`
+    })
   }
 }
 
