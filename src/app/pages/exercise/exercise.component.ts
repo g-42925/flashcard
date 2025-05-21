@@ -149,6 +149,10 @@ export class ExerciseComponent implements OnInit {
 
   goTo(value:any){
     this.index = this.dropDownValue.indexOf(value)
+
+    this.updateValue = {
+      ...this.words[this.index]
+    }
   }
 
   setForget(){
