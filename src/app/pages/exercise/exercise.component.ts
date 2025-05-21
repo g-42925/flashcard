@@ -54,6 +54,10 @@ export class ExerciseComponent implements OnInit {
       if(params.length > 1){
         if(!filter) this.http.post<any>(this.source,submitParameter,config).subscribe({
           next:r => {
+            var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}`
+
+            this.newWord.replace(`${submited}\n`,"")
+
             var [target] = (r as any[]).filter(w => {
               return w.original === original
             })
@@ -118,11 +122,9 @@ export class ExerciseComponent implements OnInit {
             }
 
             this.inSubmitProcess = false
-            this.newWord = ''
           },
           error:e => {
             this.inSubmitProcess = false
-            this.newWord = ''
             alert(e.message)
           }
         })
