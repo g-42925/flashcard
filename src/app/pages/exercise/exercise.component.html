@@ -16,7 +16,7 @@
         {{index+1}}/{{words.length}}
       </span>
     </div>
-    <ng-select (change)="goTo($event)" appendTo="body" placeholder="quick search" class="border-2 border-black p-3 rounded-md" [items]="getDropDownValue(words)">
+    <ng-select (change)="goTo($event)" appendTo="body" placeholder="quick search" class="border-2 border-black p-3 rounded-md" [items]="getDropDownValue()">
     </ng-select>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
