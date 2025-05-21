@@ -62,7 +62,7 @@ export class ExerciseComponent implements OnInit {
               this.words = r as any[]
 
               this.updateValue = {
-                ...r[0]
+                ...(r as any)[0]
               }
             }
             else{
@@ -107,7 +107,7 @@ export class ExerciseComponent implements OnInit {
               this.words = r as any[]
 
               this.updateValue = {
-                ...r[0]
+                ...(r as any)[0]
               }
             }
             else{
