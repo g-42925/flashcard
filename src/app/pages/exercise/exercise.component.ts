@@ -52,8 +52,17 @@ export class ExerciseComponent implements OnInit {
       const submitParameter = {original,hiragana,romaji,mean}
 
       if(params.length > 1){
-        if(!filter) this.http.post(this.source,submitParameter,config).subscribe({
+        if(!filter) this.http.post<any,any[]>(this.source,submitParameter,config).subscribe({
           next:r => {
+            var [filter] =  r.filter(w => {
+              w.original === original
+            })
+
+            this.words = [
+              ...this.words,
+              filter
+            ]
+
             var f = params.filter((w,idx) => {
               return idx > 0
             })
