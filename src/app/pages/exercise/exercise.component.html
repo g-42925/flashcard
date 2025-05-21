@@ -70,9 +70,9 @@
     <form (submit)="update()" class="relative rounded-md ml-auto mr-auto bg-white shadow-3xl rounded-md p-6 flex flex-col gap-3">
     	<h1>Update</h1>
       <input [(ngModel)]="updateValue.original" name="original" type="text" class="p-3 rounded-md border-2 border-black">
+      <input [(ngModel)]="updateValue.hiragana" name="hiragana" type="text" class="p-3 rounded-md border-2 border-black">
       <input [(ngModel)]="updateValue.romaji" name="romaji" type="text" class="p-3 rounded-md border-2 border-black">
       <input [(ngModel)]="updateValue.mean" name="mean" type="text" class="p-3 rounded-md border-2 border-black">
-      <input [(ngModel)]="updateValue.hiragana" name="hiragana" type="text" class="p-3 rounded-md border-2 border-black">
       
       <button type="submit" class="p-3 bg-black text-white">Submit</button>
       <button (click)="updateMode=false" type="button" class="absolute top-5 right-5">
