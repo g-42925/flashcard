@@ -56,7 +56,7 @@ export class ExerciseComponent implements OnInit {
           next:r => {
             var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}`
 
-            this.newWord.replace(`${submited}\n`,"")
+            this.newWord.replace(`${submitted}\n`,"")
 
             var [target] = (r as any[]).filter(w => {
               return w.original === original
