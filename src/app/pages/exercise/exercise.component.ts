@@ -30,6 +30,7 @@ export class ExerciseComponent implements OnInit {
   forgottenWords:any[] = []
   previousSubmitted = ''
   url = 'https://rational-charming-hornet.ngrok-free.app'
+  url2 = 'http://localhost:3000'
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -46,12 +47,12 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(params){
-      const [original,romaji,mean] = params[0].split(' / ')
+      const [original,hiragana,romaji,mean] = params[0].split(' / ')
       const [filter] = current.filter(word => word.original === original)
       const submitParameter = {original,romaji,mean,addedAt:'2025/May/19'}
 
       if(params.length > 1){
-        if(!filter) this.http.post(this.url,submitParameter,config).subscribe({
+        if(!filter) this.http.post(this.url2,submitParameter,config).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -76,7 +77,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post(this.url,submitParameter,config).subscribe({
+        if(!filter) this.http.post(this.url2,submitParameter,config).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
@@ -106,24 +107,34 @@ export class ExerciseComponent implements OnInit {
   
   update(){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    var url = `${this.url}/${this.words[this.index].id}`
+    var url = `${this.url2}/${this.words[this.index].id}`
     var config = {headers,withCredentials:true}
    
-    this.http.put(url,this.updateValue,config).subscribe(r => {
+    this.http.put<any[]>(url,this.updateValue,config).subscribe(r => {
       this.updateMode = false
+
+      var index1 = this.words.findIndex(w => {
+        return w.id === this.words[this.index].id
+      })
+
+      var index2 = r.findIndex(w => {
+        return w.id === this.words[this.index].id
+      })
+
+      this.words[index1] = r[index2]
     });
   }
 
   delete(id:string){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    this.http.delete(`${this.url}/${id}`,{headers,withCredentials:true}).subscribe(r => {
-      window.location.reload()
+    this.http.delete(`${this.url2}/${id}`,{headers,withCredentials:true}).subscribe(r => {
+      this.words = this.words.filter(w => w.id != id)
     });
   }
 
   ngOnInit(){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    this.http.get<any[]>(this.url,{headers,withCredentials:true}).subscribe(r => {
+    this.http.get<any[]>(this.url2,{headers,withCredentials:true}).subscribe(r => {
       this.words = shuffle(
         r
       )
@@ -173,6 +184,19 @@ export class ExerciseComponent implements OnInit {
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
     if(event.key === 'ArrowLeft') this.setNewIndex('previously')
     if(event.key === 'ArrowRight') this.setNewIndex('next')
+
+    if(event.key === 'Shift'){
+      if(this.updateMode){
+        setTimeout(() => {
+          this.updateMode = false
+        })
+      }
+      
+      if(!this.updateMode){
+        this.setForget()
+        this.updateMode = true
+      }
+    }
   }
 
   tidy(){
