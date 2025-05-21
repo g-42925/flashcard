@@ -54,7 +54,7 @@ export class ExerciseComponent implements OnInit {
       if(params.length > 1){
         if(!filter) this.http.post<any>(this.source,submitParameter,config).subscribe({
           next:r => {
-            var [filter] =  r.filter(w => {
+            var [filter] =  (r as any[]).filter(w => {
               w.original === original
             })
 
