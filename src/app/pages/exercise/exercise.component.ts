@@ -60,7 +60,7 @@ export class ExerciseComponent implements OnInit {
 
             if(this.words.length < 1){
               this.words = [
-                r
+                ...r
               ]
             }
             else{
@@ -103,7 +103,7 @@ export class ExerciseComponent implements OnInit {
 
             if(this.words.length < 1){
               this.words = [
-                r
+                ...r
               ]
             }
             else{
