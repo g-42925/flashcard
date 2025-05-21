@@ -58,10 +58,19 @@ export class ExerciseComponent implements OnInit {
               return w.original === original
             })
 
-            this.words = [
-              ...this.words,
-              target
-            ]
+            if(this.words.length < 1){
+              this.words = [
+                r
+              ]
+            }
+            else{
+              this.words = [
+                ...this.words,
+                target
+              ]
+            }
+
+            
 
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -92,10 +101,17 @@ export class ExerciseComponent implements OnInit {
               return w.original === original
             })
 
-            this.words = [
-              ...this.words,
-              target
-            ]
+            if(this.words.length < 1){
+              this.words = [
+                r
+              ]
+            }
+            else{
+              this.words = [
+                ...this.words,
+                target
+              ]
+            }
 
             this.inSubmitProcess = false
             this.newWord = ''
