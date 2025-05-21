@@ -54,9 +54,9 @@ export class ExerciseComponent implements OnInit {
       if(params.length > 1){
         if(!filter) this.http.post<any>(this.source,submitParameter,config).subscribe({
           next:r => {
-            var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}`
+            var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
 
-            this.newWord.replace(`${submitted}`,"")
+            setTimeout(() => this.newWord.replace(`${submitted}`,""))
 
             var [target] = (r as any[]).filter(w => {
               return w.original === original
