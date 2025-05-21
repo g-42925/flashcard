@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Component,OnInit,inject,HostListener } from '@angular/core';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-exercise',
@@ -29,9 +30,8 @@ export class ExerciseComponent implements OnInit {
   updateValue:Update = {}
   forgottenWords:any[] = []
   previousSubmitted = ''
-  url = 'https://rational-charming-hornet.ngrok-free.app'
-  url2 = 'http://localhost:3000'
-
+  source = environment.source
+  
   async submit(params? : string[]){   
     this.inSubmitProcess = true
 
@@ -49,10 +49,10 @@ export class ExerciseComponent implements OnInit {
     if(params){
       const [original,hiragana,romaji,mean] = params[0].split(' / ')
       const [filter] = current.filter(word => word.original === original)
-      const submitParameter = {original,romaji,mean,addedAt:'2025/May/19'}
+      const submitParameter = {original,hiragana,romaji,mean}
 
       if(params.length > 1){
-        if(!filter) this.http.post(this.url2,submitParameter,config).subscribe({
+        if(!filter) this.http.post(this.source,submitParameter,config).subscribe({
           next:r => {
             var f = params.filter((w,idx) => {
               return idx > 0
@@ -77,7 +77,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post(this.url2,submitParameter,config).subscribe({
+        if(!filter) this.http.post(this.source,submitParameter,config).subscribe({
           next:r => {
             this.inSubmitProcess = false
             this.newWord = ''
@@ -107,10 +107,10 @@ export class ExerciseComponent implements OnInit {
   
   update(){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    var url = `${this.url2}/${this.words[this.index].id}`
+    var url = `${this.source}/${this.words[this.index].id}`
     var config = {headers,withCredentials:true}
    
-    this.http.put<any[]>(url,this.updateValue,config).subscribe(r => {
+    this.http.put<any[]>(this.source,this.updateValue,config).subscribe(r => {
       this.updateMode = false
 
       var index1 = this.words.findIndex(w => {
@@ -127,14 +127,14 @@ export class ExerciseComponent implements OnInit {
 
   delete(id:string){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    this.http.delete(`${this.url2}/${id}`,{headers,withCredentials:true}).subscribe(r => {
+    this.http.delete(`${this.source}/${id}`,{headers,withCredentials:true}).subscribe(r => {
       this.words = this.words.filter(w => w.id != id)
     });
   }
 
   ngOnInit(){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    this.http.get<any[]>(this.url2,{headers,withCredentials:true}).subscribe(r => {
+    this.http.get<any[]>(this.source,{headers,withCredentials:true}).subscribe(r => {
       this.words = shuffle(
         r
       )
