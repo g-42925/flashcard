@@ -101,7 +101,7 @@ export class ExerciseComponent implements OnInit {
       if(params.length === 1){
         if(!exist) this.http.post(this.source,submitParameter,config).subscribe({
           next:r => {
-            var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
+            var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}`
 
             this.newWord = this.newWord.replace(`${submitted}`,"")
 
