@@ -48,11 +48,11 @@ export class ExerciseComponent implements OnInit {
 
     if(params){
       const [original,hiragana,romaji,mean] = params[0].split(' / ')
-      const [filter] = current.filter(word => word.original === original)
+      const [exist] = current.filter(word => word.original === original)
       const submitParameter = {original,hiragana,romaji,mean}
 
-      if(params.length > 0){
-        if(!filter) this.http.post<any>(this.source,submitParameter,config).subscribe({
+      if(params.length > 1){
+        if(!exist) this.http.post<any>(this.source,submitParameter,config).subscribe({
           next:r => {
             var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
 
@@ -87,25 +87,24 @@ export class ExerciseComponent implements OnInit {
             alert(e.message)
           }
         })
-        if(filter){
-          alert('this word is already exist')
+        if(exist){
+          alert('this words is already exist')
           var f = params.filter((w,idx) => {
             return idx > 0
           })
-          if(f.length > 0){
-            this.submit(
-              f
-            )
-          }
-          else{
-            alert('done')
-          }
+          this.submit(
+            f
+          )
         }
       }
 
-      if(params.length < 2){
-        this.http.post(this.source,submitParameter,config).subscribe({
+      if(params.length === 1){
+        if(!exist) this.http.post(this.source,submitParameter,config).subscribe({
           next:r => {
+            var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
+
+            this.newWord = this.newWord.replace(`${submitted}`,"")
+
             var [target] = (r as any[]).filter(w => {
               return w.original === original
             })
@@ -131,6 +130,9 @@ export class ExerciseComponent implements OnInit {
             alert(e.message)
           }
         })
+        if(exist){
+          alert('this words is already exist')
+        }
       }
     }
     
