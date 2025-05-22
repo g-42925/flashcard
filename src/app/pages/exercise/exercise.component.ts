@@ -51,7 +51,7 @@ export class ExerciseComponent implements OnInit {
       const [filter] = current.filter(word => word.original === original)
       const submitParameter = {original,hiragana,romaji,mean}
 
-      if(params.length > 1){
+      if(params.length > 0){
         if(!filter) this.http.post<any>(this.source,submitParameter,config).subscribe({
           next:r => {
             var submitted = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
@@ -104,7 +104,7 @@ export class ExerciseComponent implements OnInit {
       }
 
       if(params.length < 2){
-        if(!filter) this.http.post(this.source,submitParameter,config).subscribe({
+        this.http.post(this.source,submitParameter,config).subscribe({
           next:r => {
             var [target] = (r as any[]).filter(w => {
               return w.original === original
@@ -131,18 +131,12 @@ export class ExerciseComponent implements OnInit {
             alert(e.message)
           }
         })
-
-        if(filter){
-          this.newWord = ''
-          this.inSubmitProcess = false
-          alert('this word is already exist')
-        }
       }
     }
     
     if(!params){
       this.submit(
-        this.newWord.split('\n'),
+        this.newWord.split('\n')
       )
     }
   }
