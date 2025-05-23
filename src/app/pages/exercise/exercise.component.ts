@@ -192,10 +192,17 @@ export class ExerciseComponent implements OnInit {
   }
 
   setForget(){
-    this.forgottenWords = [
-      ...this.forgottenWords,
-      this.words[this.index]
-    ]
+    var word = this.words[this.index]
+    var [filter] = this.forgottenWords.filter(
+      w => w.original === word.original
+    )
+
+    if(!filter){
+      this.forgottenWords = [
+        ...this.forgottenWords,
+        this.words[this.index]
+      ]
+    }
   }
 
   setNewIndex(eventType:string){
