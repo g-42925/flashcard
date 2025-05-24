@@ -184,7 +184,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   goTo(value:any){
-    this.index = this.dropDownValue.indexOf(value)
+    var index = parseInt(value)
+    this.index = index - 1
 
     this.updateValue = {
       ...this.words[this.index]
