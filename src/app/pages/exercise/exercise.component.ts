@@ -257,7 +257,7 @@ export class ExerciseComponent implements OnInit {
         }
       })
 
-      navigator.clipboard.writeText(lists)
+      navigator.clipboard.writeText(list)
     }
   }
 
