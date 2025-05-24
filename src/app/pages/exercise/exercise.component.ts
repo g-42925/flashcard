@@ -247,7 +247,7 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F9'){
-      var list = ``
+      var list = ''
       this.words.forEach(w => {
         if(list != ''){
           list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`
