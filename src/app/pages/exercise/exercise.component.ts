@@ -90,7 +90,7 @@ export class ExerciseComponent implements OnInit {
         if(exist){
           var failedToSubmitWord = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
 
-          this.newWord = this.newWord.replace(`${submitted}`,`${original} / ${hiragana} / ${romaji} / ${mean} (already exist)\n`)
+          this.newWord = this.newWord.replace(`${failedToSubmitWord}`,`${original} / ${hiragana} / ${romaji} / ${mean} (already exist)\n`)
 
           var f = params.filter((w,idx) => {
             return idx > 0
@@ -136,7 +136,7 @@ export class ExerciseComponent implements OnInit {
         if(exist){
           var failedToSubmitWord = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
 
-          this.newWord = this.newWord.replace(`${submitted}`,`${original} / ${hiragana} / ${romaji} / ${mean} (already exist)\n`)
+          this.newWord = this.newWord.replace(`${failedToSubmitWord}`,`${original} / ${hiragana} / ${romaji} / ${mean} (already exist)\n`)
 
         }
       }
