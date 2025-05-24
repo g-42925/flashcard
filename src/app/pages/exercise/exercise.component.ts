@@ -134,9 +134,9 @@ export class ExerciseComponent implements OnInit {
           }
         })
         if(exist){
-          var failedToSubmitWord = `${original} / ${hiragana} / ${romaji} / ${mean}\n`
+          var failedToSubmitWord = `${original} / ${hiragana} / ${romaji} / ${mean}`
 
-          this.newWord = this.newWord.replace(`${failedToSubmitWord}`,`${original} / ${hiragana} / ${romaji} / ${mean} (already exist)\n`)
+          this.newWord = this.newWord.replace(`${failedToSubmitWord}`,`${original} / ${hiragana} / ${romaji} / ${mean} (already exist)`)
 
         }
       }
