@@ -247,18 +247,20 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F9'){
-  let list = '';  // string kosong
-  this.words.forEach(w => {
-    if(list !== ''){
-      list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+      let list = '';
+      this.words.forEach((w,index) => {
+        if(list !== ''){
+          list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+        }
+        else{
+          list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+        }
+        if(index === this.words.length -1){
+          navigator.clipboard.writeText(list)
+            .then(r => alert(r))
+        }
+      })
     }
-    else{
-      list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
-    }
-  });
-
-  navigator.clipboard.writeText(list);
-}
   }
 
   tidy(){
