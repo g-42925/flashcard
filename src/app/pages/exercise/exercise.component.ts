@@ -247,18 +247,18 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F9'){
-      var list = ''
-      this.words.forEach(w => {
-        if(list != ''){
-          list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`
-        }
-        else{
-          list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`
-        }
-      })
-
-      navigator.clipboard.writeText(list)
+  let list = '';  // string kosong
+  this.words.forEach(w => {
+    if(list !== ''){
+      list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
     }
+    else{
+      list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+    }
+  });
+
+  navigator.clipboard.writeText(list);
+}
   }
 
   tidy(){
