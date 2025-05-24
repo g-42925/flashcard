@@ -245,6 +245,20 @@ export class ExerciseComponent implements OnInit {
         this.updateMode = true
       }
     }
+
+    if(event.key === 'F9'){
+      var list = ``
+      this.words.forEach(w => {
+        if(list != ''){
+          list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`
+        }
+        else{
+          list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`
+        }
+      })
+
+      navigator.clipboard.writeText(lists)
+    }
   }
 
   tidy(){
