@@ -175,7 +175,7 @@ export class ExerciseComponent implements OnInit {
     this.http.delete(`${this.source}/${id}`,{headers,withCredentials:true}).subscribe(r => {
       var index = this.words.findIndex(w => w.id === id)
 
-      this.updateValue = this.words[index - 1]
+      this.updateValue = this.words[index + 1]
 
       this.words = this.words.filter(w => w.id != id)
     });
