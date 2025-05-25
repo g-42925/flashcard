@@ -14,8 +14,10 @@ export class ResultComponent{
   whsState:any[] = window.history.state.state
   @ViewChildren('retype') retypeFields!: QueryList<ElementRef>;
 
+  kanjiViewMode = false
   romajiReveal = false
   revealId = ''
+  selected = ''
 
   reveal(id:string):void{
     this.romajiReveal = true
