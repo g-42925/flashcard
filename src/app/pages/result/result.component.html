@@ -1,7 +1,7 @@
 <table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
   <thead class="text-gray-700">
     <tr>
-      <th class="text-left px-6 py-3 text-2xl font-semibold uppercase">Original</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
       <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
       <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Re-type</th>
     </tr>
@@ -9,7 +9,7 @@
   <tbody class="text-gray-800">
   	@for(i of whsState; let index = $index; track i ){
   	  <tr class="border-t border-gray-200 hover:bg-gray-50">
-        <td class="px-6 py-4">{{i.original}}</td>
+        <td class="px-6 py-4 text-lg">{{i.original}}</td>
         <td (click)="reveal(i.id)">{{romajiReveal && revealId === i.id ? i.romaji:'...'}}</td>
         <td class="px-6 py-4">
         	<input 
