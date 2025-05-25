@@ -9,7 +9,7 @@
   <tbody class="text-gray-800">
   	@for(i of whsState; let index = $index; track i ){
   	  <tr class="border-t border-gray-200 hover:bg-gray-50">
-        <td class="px-6 py-4 text-lg">{{i.original}}</td>
+        <td class="px-6 py-4 text-2xl">{{i.original}}</td>
         <td (click)="reveal(i.id)">{{romajiReveal && revealId === i.id ? i.romaji:'...'}}</td>
         <td class="px-6 py-4">
         	<input 
