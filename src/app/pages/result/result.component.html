@@ -1,41 +1,40 @@
-<div class="relative min-h-screen max-h-fit flex flex-col">
-<table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
-  <thead class="text-gray-700">
-    <tr>
-      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
-      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
-      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Re-type</th>
-    </tr>
-  </thead>
-  <tbody class="text-gray-800">
-  	@for(i of whsState; let index = $index; track i ){
-  	  <tr class="border-t border-gray-200 hover:bg-gray-50">
-        <td (click)="kanjiViewMode=true;selected=i.original" class="px-6 py-4 text-2xl">{{i.original}}</td>
-        <td (click)="reveal(i.id)">{{romajiReveal && revealId === i.id ? i.romaji:'...'}}</td>
-        <td class="px-6 py-4">
-        	<input 
-            #retype
-            [id]="i.id"
-        	  type="text"
-        	  placeholder="retype romaji"
-        	  [ngClass]="correctList.includes(i.romaji) ? 'border-green-900':''"
-        	  class="border-2 border-black w-full rounded-md p-3"
-        	  (keyup)="onChange($event,i.romaji,index)"
-        	/>
-        </td>
-      </tr>	
-  	}
-  </tbody>
-</table>
 
-<div *ngIf="kanjiViewMode" class="absolute w-full h-full bg-black opacity-80 flex flex-col justify-center ">
-</div>
-<div *ngIf="kanjiViewMode" class="absolute w-full h-full flex flex-col justify-center ">
+<div class="relative max-h-fit">
+<div *ngIf="kanjiViewMode" class="fixed flex flex-col justify-center top-0 z-10 h-screen w-full">
   <div (click)="kanjiViewMode=false;selected=''" class="bg-black w-4/5 h-4/5 ml-auto mr-auto rounded-md flex flex-col justify-center text-center">
     <span class="text-white text-9xl">
       {{selected}}
     </span>
   </div>
 </div>
-
+<div *ngIf="kanjiViewMode" class="absolute h-full w-full bg-black opacity-80 flex flex-col justify-center"></div>
+<table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
+    <thead class="text-gray-700">
+      <tr>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Re-type</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-800">
+  	  @for(i of whsState; let index = $index; track i ){
+  	    <tr class="border-t border-gray-200 hover:bg-gray-50">
+          <td (click)="kanjiViewMode=true;selected=i.original" class="px-6 py-4 text-2xl">{{i.original}}</td>
+          <td (click)="reveal(i.id)">{{romajiReveal && revealId === i.id ? i.romaji:'...'}}</td>
+          <td class="px-6 py-4">
+        	  <input 
+              #retype
+              [id]="i.id"
+        	    type="text"
+        	    placeholder="retype romaji"
+        	    [ngClass]="correctList.includes(i.romaji) ? 'border-green-900':''"
+        	    class="border-2 border-black w-full rounded-md p-3"
+        	    (keyup)="onChange($event,i.romaji,index)"
+        	  />
+          </td>
+        </tr>	
+  	  }
+    </tbody>
+</table>
 </div>
+
