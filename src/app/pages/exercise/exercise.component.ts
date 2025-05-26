@@ -31,6 +31,7 @@ export class ExerciseComponent implements OnInit {
   forgottenWords:any[] = []
   previousSubmitted = ''
   source = environment.source
+  reviewMode = false
   
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -256,6 +257,10 @@ export class ExerciseComponent implements OnInit {
       }
     }
 
+    if(event.key === 'F8'){
+      this.reviewMode = true
+    }
+
     if(event.key === 'F9'){
       let list = '';
       this.words.forEach((w,index) => {
@@ -270,6 +275,10 @@ export class ExerciseComponent implements OnInit {
             .then(r => alert(r))
         }
       })
+    }
+
+    if(event.key === 'Escape'){
+      this.reviewMode = false
     }
   }
 

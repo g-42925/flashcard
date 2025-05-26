@@ -1,4 +1,23 @@
-<div class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<table *ngIf="reviewMode" class="min-w-full border border-gray-200 shadow-md overflow-hidden">
+    <thead class="text-gray-700">
+      <tr>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
+      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Mean</th>
+      </tr>
+    </thead>
+    <tbody class="text-gray-800">
+      @for(i of forgottenWords; let index = $index; track i ){
+        <tr class="border-t border-gray-200 hover:bg-gray-50">
+          <td class="px-6 py-4 text-2xl">{{i.original}}</td>
+          <td >{{i.romaji}}</td>
+          <td>{{i.mean}}</td>
+        </tr> 
+      }
+    </tbody>
+</table>
+
+<div *ngIf="!reviewMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-col justify-center text-center bg-black relative">
       <span class="text-white text-9xl">
@@ -49,7 +68,6 @@
       </button>
     </div>
   </div>
-  
   <div *ngIf="submitMode || updateMode" class="absolute w-full h-full bg-black opacity-80 flex flex-col justify-center ">
   </div>
   <div *ngIf="submitMode" class="absolute w-full h-full flex flex-col justify-center ">
@@ -63,7 +81,6 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
         </svg>
       </button>
-
     </form>
   </div>
   <div *ngIf="updateMode" class="absolute w-full h-full flex flex-col justify-center ">
