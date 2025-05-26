@@ -236,7 +236,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   viewResult(){
-    var state = {state:this.forgottenWords}
+    var state = {state:shuffle(this.forgottenWords)}
     this.router.navigateByUrl('/result',{state});
   }
 
