@@ -165,9 +165,9 @@ export class ExerciseComponent implements OnInit {
 
       this.words[index1] = r[index2]
 
-      this.dropDownValue = this.words.map((w,index) => {
-        return `ds${index+1}. ${w.original} (${w.romaji})`
-      })
+      // this.dropDownValue = this.words.map((w,index) => {
+      //   return `ds${index+1}. ${w.original} (${w.romaji})`
+      // })
 
     });
   }
