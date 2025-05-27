@@ -156,7 +156,7 @@ export class ExerciseComponent implements OnInit {
     var url = `${this.source}/${this.words[this.index].id}`
     var config = {headers,withCredentials:true}
    
-    this.http.put<any[]>(this.source,this.updateValue,config).subscribe(r => {
+    this.http.put<any[]>(`${this.source}/${this.updateValue.id}`,this.updateValue,config).subscribe(r => {
       this.updateMode = false
 
       var index1 = this.words.findIndex(w => {
