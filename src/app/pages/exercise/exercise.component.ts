@@ -159,19 +159,16 @@ export class ExerciseComponent implements OnInit {
     this.http.put<any[]>(`${this.source}/${this.updateValue.id}`,this.updateValue,config).subscribe(r => {
       this.updateMode = false
 
-      var index1 = this.words.findIndex(w => {
-        return w.id === this.words[this.index].id
-      })
+      var index1 = this.words.findIndex(w => w.id === this.words[this.index].id)
 
-      var index2 = r.findIndex(w => {
-        return w.id === this.words[this.index].id
-      })
+      var index2 = r.findIndex(w => w.id === this.words[this.index].id)
 
       this.words[index1] = r[index2]
 
-      setTimeout(() => {
-        this.dropDownValue[index1] = `${index1}+1. ${r[index2].romaji} (${r[index2].original})`
+      this.dropDownValue = this.words.map((w,index) => {
+        return `ds${index+1}. ${w.original} (${w.romaji})`
       })
+
     });
   }
 
