@@ -163,7 +163,7 @@ export class ExerciseComponent implements OnInit {
 
       var index2 = r.findIndex(w => w.id === this.words[this.index].id)
 
-      this.words[index1] = r[index2]
+      setTimeout(() => this.words[index1] = r[index2])
 
       // this.dropDownValue = this.words.map((w,index) => {
       //   return `ds${index+1}. ${w.original} (${w.romaji})`
