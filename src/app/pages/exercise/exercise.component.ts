@@ -168,6 +168,7 @@ export class ExerciseComponent implements OnInit {
       })
 
       this.words[index1] = r[index2]
+      this.dropDownValue[index1] = `${index1+1} ${r[index2].original} (${r[index2].romaji})`
     });
   }
 
