@@ -6,7 +6,7 @@ import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { Component,OnInit,inject,HostListener } from '@angular/core';
 import { environment } from '../../../environments/environment';
-
+import { QuickSearchPipe } from '../../shared/pipe/quick_search/quick-search.pipe'
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
@@ -14,7 +14,8 @@ import { environment } from '../../../environments/environment';
   imports: [
     CommonModule,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    QuickSearchPipe
   ],
 })
 export class ExerciseComponent implements OnInit {
@@ -32,6 +33,8 @@ export class ExerciseComponent implements OnInit {
   previousSubmitted = ''
   source = environment.source
   reviewMode = false
+  quickSearchMode = false
+  filter = ''
   
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -163,12 +166,7 @@ export class ExerciseComponent implements OnInit {
 
       var index2 = r.findIndex(w => w.id === this.words[this.index].id)
 
-      setTimeout(() => this.words[index1] = r[index2])
-
-      // this.dropDownValue = this.words.map((w,index) => {
-      //   return `ds${index+1}. ${w.original} (${w.romaji})`
-      // })
-
+      this.words[index1] = r[index2]
     });
   }
 
@@ -195,13 +193,16 @@ export class ExerciseComponent implements OnInit {
     });
   }
 
-  goTo(value:any){
-    var index = parseInt(value)
-    this.index = index - 1
+  goTo(value:string){
+    var index = this.words.findIndex(w => {
+      return w.original === value
+    })
 
-    this.updateValue = {
-      ...this.words[this.index]
-    }
+    this.updateValue = this.words[index]
+
+    this.index = index
+    
+    this.quickSearchMode = false
   }
 
   setForget(){
@@ -258,8 +259,12 @@ export class ExerciseComponent implements OnInit {
       }
     }
 
+    if(event.key === 'F4'){
+      this.quickSearchMode = !this.quickSearchMode
+    }
+
     if(event.key === 'F8'){
-      this.reviewMode = true
+      this.reviewMode = !this.reviewMode
     }
 
     if(event.key === 'F9'){
@@ -276,10 +281,6 @@ export class ExerciseComponent implements OnInit {
             .then(r => alert(r))
         }
       })
-    }
-
-    if(event.key === 'Escape'){
-      this.reviewMode = false
     }
   }
 

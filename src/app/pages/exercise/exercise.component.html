@@ -1,3 +1,44 @@
+<div class="flex flex-col gap-3 p-3" *ngIf="quickSearchMode" >
+  <input 
+    type="text"
+    [(ngModel)]="filter"
+    placeholder="quick search"
+    class="border-2 border-black p-3 w-full outline-none rounded-md"
+  >
+
+  <table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
+    <thead class="text-gray-700">
+      <tr>
+        <th class="text-left px-6 py-3 text-sm font-semibold uppercase">No.</th>        
+        <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
+        <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
+        <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Mean</th>
+      </tr>
+    </thead>
+    <tbody *ngIf="filter.length < 1" class="text-gray-800">
+      @for(i of words | quickSearch:filter; let index = $index; track i ){
+        <tr class="border-t border-gray-200 hover:bg-gray-50">
+          <td class="px-6 py-4">{{index+1}}</td>        
+          <td class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
+          <td class="px-6 py-4">{{i.romaji}}</td>
+          <td class="px-6 py-4">{{i.mean}}</td>
+        </tr> 
+      }
+    </tbody>
+    <tbody *ngIf="filter.length > 0" class="text-gray-800">
+      @for(i of words | quickSearch:filter; let index = $index; track i ){
+        <tr class="border-t border-gray-200 hover:bg-gray-50">
+          <td class="px-6 py-4">{{index+1}}</td>        
+          <td (click)="goTo(i.original)" class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
+          <td class="px-6 py-4">{{i.romaji}}</td>
+          <td class="px-6 py-4">{{i.mean}}</td>
+        </tr> 
+      }
+    </tbody>
+  </table>
+</div>
+
+
 <table *ngIf="reviewMode" class="min-w-full border border-gray-200 shadow-md overflow-hidden">
     <thead class="text-gray-700">
       <tr>
@@ -17,7 +58,7 @@
     </tbody>
 </table>
 
-<div *ngIf="!reviewMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<div *ngIf="!reviewMode && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-col justify-center text-center bg-black relative">
       <span class="text-white text-9xl">
@@ -35,8 +76,6 @@
         {{index+1}}/{{words.length}}
       </span>
     </div>
-    <ng-select (change)="goTo($event)" appendTo="body" placeholder="quick search" class="border-2 border-black p-3 rounded-md" [items]="getDropDownValue()">
-    </ng-select>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
