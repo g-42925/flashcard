@@ -250,7 +250,7 @@ export class ExerciseComponent implements OnInit {
   
 
     if(event.key === 'ArrowRight') {
-      if(this.updateMode) this.setNewIndex('next')
+      if(!this.updateMode) this.setNewIndex('next')
     }
 
 
