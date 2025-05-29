@@ -243,8 +243,16 @@ export class ExerciseComponent implements OnInit {
   }
 
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
-    if(event.key === 'ArrowLeft') this.setNewIndex('previously')
-    if(event.key === 'ArrowRight') this.setNewIndex('next')
+    if(event.key === 'ArrowLeft') {
+      if(!this.updateMode) this.setNewIndex('previously')
+    }
+
+  
+
+    if(event.key === 'ArrowRight') {
+      if(this.updateMode) this.setNewIndex('next')
+    }
+
 
     if(event.key === 'Shift'){
       if(this.updateMode){
