@@ -166,7 +166,10 @@ export class ExerciseComponent implements OnInit {
 
       var index2 = r.findIndex(w => w.id === this.words[this.index].id)
 
+      var index3 = this.forgottenWords.findIndex(w => w.id === this.words[this.index].id)
+
       this.words[index1] = r[index2]
+      this.forgottenWords[index3] = r[index2]
     });
   }
 
