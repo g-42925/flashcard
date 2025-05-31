@@ -37,6 +37,7 @@ export class ExerciseComponent implements OnInit {
   comparation:any[] = []
   filter = ''
   compareMode = false
+  searchType = "romaji"
   
   async submit(params? : string[]){   
     this.inSubmitProcess = true

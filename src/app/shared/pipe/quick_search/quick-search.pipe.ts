@@ -4,13 +4,24 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'quickSearch'
 })
 export class QuickSearchPipe implements PipeTransform {
-  transform(value:any[],filter:string):any[] {
+  transform(value:any[],args:any):any[] {
     var tmp:any[] = []
-    value.forEach((word,index) => {
-      if(word.romaji.includes(filter)){
-        tmp.push(word)
-      }
-    })
+
+    if(args.searchType === 'romaji'){
+      value.forEach((word,index) => {
+        if(word.romaji.includes(args.filter)){
+          tmp.push(word)
+        }
+      })
+    }
+
+    if(args.searchType === 'kanji'){
+      value.forEach((word,index) => {
+        if(word.original.includes(args.filter)){
+          tmp.push(word)
+        }
+      })
+    }
 
     return tmp
   }

@@ -1,10 +1,19 @@
 <div class="flex flex-col gap-3 p-3" *ngIf="quickSearchMode" >
-  <input 
-    type="text"
-    [(ngModel)]="filter"
-    placeholder="quick search"
-    class="border-2 border-black p-3 w-full outline-none rounded-md"
-  >
+  <div class="flex flex-row gap-3">
+
+    <input 
+      type="text"
+      [(ngModel)]="filter"
+      placeholder="quick search with {{searchType}}"
+      class="border-2 border-black p-3 w-full outline-none rounded-md"
+    >
+
+    <select class="w-[200px] p-3 rounded-sm">
+      <option (click)="searchType=`romaji`">Romaji</option>
+      <option (click)="searchType=`kanji`">Kanji</option>      
+    </select>
+
+  </div>
 
   <table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
     <thead class="text-gray-700">
@@ -17,10 +26,10 @@
       </tr>
     </thead>
     <tbody *ngIf="filter.length < 1" class="text-gray-800">
-      @for(i of words | quickSearch:filter; let index = $index; track i ){
+      @for(i of words; let index = $index; track i ){
         <tr class="border-t border-gray-200 hover:bg-gray-50">
           <td class="px-6 py-4">{{index+1}}</td>        
-          <td (click)="goTo(i.original)" class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
+          <td class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
           <td class="px-6 py-4">{{i.romaji}}</td>
           <td class="px-6 py-4">{{i.mean}}</td>
           <td>
@@ -34,10 +43,10 @@
       }
     </tbody>
     <tbody *ngIf="filter.length > 0" class="text-gray-800">
-      @for(i of words | quickSearch:filter; let index = $index; track i ){
+      @for(i of words | quickSearch:{filter,searchType}; let index = $index; track i ){
         <tr class="border-t border-gray-200 hover:bg-gray-50">
           <td class="px-6 py-4">{{index+1}}</td>        
-          <td (click)="goTo(i.original)" class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
+          <td class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
           <td class="px-6 py-4">{{i.romaji}}</td>
           <td class="px-6 py-4">{{i.mean}}</td>
           <td>
