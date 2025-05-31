@@ -345,6 +345,10 @@ export class ExerciseComponent implements OnInit {
       ]
     }
   }
+
+  copy(v:string){
+    navigator.clipboard.writeText(v)
+  }
 }
 
 
