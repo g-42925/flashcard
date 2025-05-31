@@ -34,7 +34,9 @@ export class ExerciseComponent implements OnInit {
   source = environment.source
   reviewMode = false
   quickSearchMode = false
+  comparation:any[] = []
   filter = ''
+  compareMode = false
   
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -271,11 +273,20 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F4'){
+      this.reviewMode = false
+      this.compareMode = false
       this.quickSearchMode = !this.quickSearchMode
     }
 
     if(event.key === 'F8'){
-      this.reviewMode = !this.reviewMode
+      if(this.forgottenWords.length < 1){
+        alert('no mistake has been made this far')
+      }
+      else{
+        this.compareMode = false
+        this.quickSearchMode = false
+        this.reviewMode = !this.reviewMode
+      }
     }
 
     if(event.key === 'F9'){
@@ -293,6 +304,22 @@ export class ExerciseComponent implements OnInit {
         }
       })
     }
+
+    if(event.key === 'F1'){
+      if(this.compareMode && this.comparation.length > 0) {
+        this.comparation = []
+      }
+ 
+      this.reviewMode = false
+      this.quickSearchMode = false
+
+      if(!this.compareMode && this.comparation.length < 1){
+        this.quickSearchMode = true
+      }
+      else{
+        this.compareMode = !this.compareMode
+      }
+    }
   }
 
   tidy(){
@@ -303,6 +330,19 @@ export class ExerciseComponent implements OnInit {
     return this.words.map((w,index) => {
       return `${index+1}. ${w.original} (${w.romaji})`
     })
+  }
+
+  compare(i:any){
+    var [filter] = this.comparation.filter(
+      w => w.original === i.original
+    )
+    
+    if(!filter && this.comparation.length < 2){
+      this.comparation = [
+        ...this.comparation,
+        i
+      ]
+    }
   }
 }
 

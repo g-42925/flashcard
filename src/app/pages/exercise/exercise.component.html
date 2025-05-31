@@ -13,15 +13,23 @@
         <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
         <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
         <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Mean</th>
+        <th class="text-left px-6 py-3 text-sm font-semibold uppercase"></th>
       </tr>
     </thead>
     <tbody *ngIf="filter.length < 1" class="text-gray-800">
       @for(i of words | quickSearch:filter; let index = $index; track i ){
         <tr class="border-t border-gray-200 hover:bg-gray-50">
           <td class="px-6 py-4">{{index+1}}</td>        
-          <td class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
+          <td (click)="goTo(i.original)" class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
           <td class="px-6 py-4">{{i.romaji}}</td>
           <td class="px-6 py-4">{{i.mean}}</td>
+          <td>
+            <button class="bg-black rounded-full p-1 active:bg-red-900" (click)="compare(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 text-white">
+                <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+             </svg>
+            </button>
+          </td>
         </tr> 
       }
     </tbody>
@@ -32,6 +40,13 @@
           <td (click)="goTo(i.original)" class="px-6 py-4 font-bold hover:cursor-pointer">{{i.original}}</td>
           <td class="px-6 py-4">{{i.romaji}}</td>
           <td class="px-6 py-4">{{i.mean}}</td>
+          <td>
+            <button class="bg-black rounded-full p-1 active:bg-red-900" (click)="compare(i)">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 text-white">
+                <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
+             </svg>
+            </button>
+          </td>
         </tr> 
       }
     </tbody>
@@ -40,25 +55,44 @@
 
 
 <table *ngIf="reviewMode" class="min-w-full border border-gray-200 shadow-md overflow-hidden">
-    <thead class="text-gray-700">
-      <tr>
-      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
-      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
-      <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Mean</th>
-      </tr>
-    </thead>
-    <tbody class="text-gray-800">
-      @for(i of forgottenWords; let index = $index; track i ){
-        <tr class="border-t border-gray-200 hover:bg-gray-50">
-          <td class="px-6 py-4 text-2xl">{{i.original}}</td>
-          <td >{{i.romaji}}</td>
-          <td>{{i.mean}}</td>
-        </tr> 
-      }
-    </tbody>
+  <thead class="text-gray-700">
+    <tr>
+    <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
+    <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
+    <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Mean</th>
+    </tr>
+  </thead>
+  <tbody class="text-gray-800">
+    @for(i of forgottenWords; let index = $index; track i ){
+      <tr class="border-t border-gray-200 hover:bg-gray-50">
+        <td class="px-6 py-4 text-2xl">{{i.original}}</td>
+        <td >{{i.romaji}}</td>
+        <td>{{i.mean}}</td>
+      </tr> 
+    }
+  </tbody>
 </table>
 
-<div *ngIf="!reviewMode && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<div *ngIf="compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+  <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
+    <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
+      @for(i of comparation; let index = $index; track i){
+        <div class="flex-1 bg-black flex flex-col gap-3 justify-center text-center">
+          <span class="text-white text-8xl">
+            {{i.original}}
+          </span>
+          <span class="text-white text-6xl">
+            {{i.romaji}}
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+
+
+<div *ngIf="!reviewMode && !quickSearchMode && !compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
       <div class="flex-1 bg-gray-600 flex flex-col gap-3 justify-center text-center" *ngIf="index>0">
