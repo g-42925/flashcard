@@ -273,7 +273,7 @@ export class ExerciseComponent implements OnInit {
       }
     }
 
-    if(event.key === 'F4'){
+    if(event.key === 'F2'){
       this.reviewMode = false
       this.compareMode = false
       this.quickSearchMode = !this.quickSearchMode
@@ -291,19 +291,20 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F9'){
-      let list = '';
-      this.words.forEach((w,index) => {
-        if(list !== ''){
-          list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
-        }
-        else{
-          list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
-        }
-        if(index === this.words.length -1){
-          navigator.clipboard.writeText(list)
-            .then(r => alert(r))
-        }
-      })
+      this.quickSearchMode = !this.quickSearchMode
+      // let list = '';
+      // this.words.forEach((w,index) => {
+      //   if(list !== ''){
+      //     list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+      //   }
+      //   else{
+      //     list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+      //   }
+      //   if(index === this.words.length -1){
+      //     navigator.clipboard.writeText(list)
+      //       .then(r => alert(r))
+      //   }
+      // })
     }
 
     if(event.key === 'F1'){
@@ -315,7 +316,7 @@ export class ExerciseComponent implements OnInit {
       this.quickSearchMode = false
 
       if(!this.compareMode && this.comparation.length < 1){
-        this.quickSearchMode = true
+        this.quickSearchMode = !this.quickSearchMode
       }
       else{
         this.compareMode = !this.compareMode
