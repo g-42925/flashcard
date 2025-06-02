@@ -250,13 +250,22 @@ export class ExerciseComponent implements OnInit {
 
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
     if(event.key === 'ArrowLeft') {
-      if(!this.updateMode) this.setNewIndex('previously')
+      var rule1 = !this.submitMode && !this.updateMode
+      var rule2 = !this.compareMode && !this.reviewMode
+      if(rule1 && rule2 && !this.quickSearchMode){
+        this.setNewIndex('previously')
+       
+      }
     }
 
   
 
     if(event.key === 'ArrowRight') {
-      if(!this.updateMode) this.setNewIndex('next')
+      var rule1 = !this.submitMode && !this.updateMode
+      var rule2 = !this.compareMode && !this.reviewMode
+      if(rule1 && rule2 && !this.quickSearchMode){
+        this.setNewIndex('next')
+      }
     }
 
 
@@ -270,6 +279,23 @@ export class ExerciseComponent implements OnInit {
       if(!this.updateMode){
         this.setForget()
         this.updateMode = true
+      }
+    }
+
+
+    if(event.key === 'F1'){
+      if(this.compareMode && this.comparation.length > 0) {
+        this.comparation = []
+      }
+ 
+      if(!this.compareMode && this.comparation.length < 1){
+        this.reviewMode = false
+        this.quickSearchMode = !this.quickSearchMode
+      }
+      else{
+        this.reviewMode = false
+        this.quickSearchMode = false
+        this.compareMode = !this.compareMode
       }
     }
 
@@ -291,34 +317,21 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F9'){
-      this.quickSearchMode = !this.quickSearchMode
-      // let list = '';
-      // this.words.forEach((w,index) => {
-      //   if(list !== ''){
-      //     list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
-      //   }
-      //   else{
-      //     list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
-      //   }
-      //   if(index === this.words.length -1){
-      //     navigator.clipboard.writeText(list)
-      //       .then(r => alert(r))
-      //   }
-      // })
+      let list = '';
+      this.words.forEach((w,index) => {
+        if(list !== ''){
+          list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+        }
+        else{
+          list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+        }
+        if(index === this.words.length -1){
+          navigator.clipboard.writeText(list)
+            .then(r => alert(r))
+        }
+      })
     }
 
-    if(event.key === 'F1'){
-      if(this.compareMode && this.comparation.length > 0) {
-        this.comparation = []
-      }
- 
-      if(!this.compareMode && this.comparation.length < 1){
-        this.quickSearchMode = !this.quickSearchMode
-      }
-      else{
-        this.compareMode = !this.compareMode
-      }
-    }
   }
 
   tidy(){
