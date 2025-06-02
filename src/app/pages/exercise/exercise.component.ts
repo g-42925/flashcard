@@ -312,9 +312,6 @@ export class ExerciseComponent implements OnInit {
         this.comparation = []
       }
  
-      this.reviewMode = false
-      this.quickSearchMode = false
-
       if(!this.compareMode && this.comparation.length < 1){
         this.quickSearchMode = !this.quickSearchMode
       }
