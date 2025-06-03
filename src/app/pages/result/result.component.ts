@@ -10,7 +10,6 @@ import { Component,OnInit,ViewChildren,QueryList,ElementRef,inject} from '@angul
 })
 export class ResultComponent{
   router = inject(Router)
-  correctList:any[] = []
   whsState:any[] = window.history.state.state
   @ViewChildren('retype') retypeFields!: QueryList<ElementRef>;
 
@@ -35,12 +34,10 @@ export class ResultComponent{
       
       if(el){
         el.nativeElement.focus()
+        this.whs = this.whs.filter((x,i) => {
+          return i != index
+        })
       }
-
-      this.correctList = [
-        ...this.correctList,
-        romaji
-      ]
     }
 
     if(event.target.value === romaji && index === this.whsState.length -1){
