@@ -29,7 +29,6 @@
               [id]="i.id"
         	    type="text"
         	    placeholder="retype romaji"
-        	    [ngClass]="correctList.includes(i.romaji) ? 'border-green-900':''"
         	    class="border-2 border-black w-full rounded-md p-3"
         	    (keyup)="onChange($event,i.romaji,index)"
         	  />
