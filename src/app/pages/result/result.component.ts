@@ -34,7 +34,7 @@ export class ResultComponent{
       
       if(el){
         el.nativeElement.focus()
-        this.whsState = this.whsState.filter((x) => {
+        this.whsState = this.whsState.filter((x,i) => {
           return i != index
         })
       }
