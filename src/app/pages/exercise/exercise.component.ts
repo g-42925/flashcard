@@ -326,7 +326,7 @@ export class ExerciseComponent implements OnInit {
         else{
           list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
         }
-        if(index === this.words.length -1){
+        if(index === 499){
           navigator.clipboard.writeText(list)
             .then(r => alert('done'))
         }
