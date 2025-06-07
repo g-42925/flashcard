@@ -21,6 +21,19 @@ export class ResultComponent{
   reveal(id:string):void{
     this.romajiReveal = true
     this.revealId = id
+
+    var el = this.retypeFields.find(rF => {
+      var {id} = rF.nativeElement
+      return id === revealId
+    })
+
+    if(el){
+      var [filter] = whsState.filter(f => {
+        return f.id === id
+      })
+      el.nativeElement.value = filter.romaji
+      el.nativeElement.disabled = true
+    }
   }
 
   
