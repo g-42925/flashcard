@@ -28,7 +28,7 @@ export class ResultComponent{
     })
 
     if(el){
-      var [filter] = whsState.filter(f => {
+      var [filter] = this.whsState.filter(f => {
         return f.id === id
       })
       el.nativeElement.value = filter.romaji
