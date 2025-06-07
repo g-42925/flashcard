@@ -24,12 +24,12 @@ export class ResultComponent{
 
     var el = this.retypeFields.find(rF => {
       var {id} = rF.nativeElement
-      return id === id
+      return id === this.revealId
     })
 
     if(el){
       var [filter] = this.whsState.filter(f => {
-        return f.id === id
+        return f.id === this.revealId
       })
       el.nativeElement.value = filter.romaji
       el.nativeElement.disabled = true
