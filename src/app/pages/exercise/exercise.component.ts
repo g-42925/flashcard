@@ -184,6 +184,10 @@ export class ExerciseComponent implements OnInit {
       this.updateValue = this.words[index + 1]
 
       this.words = this.words.filter(w => w.id != id)
+
+      this.forgottenWords = this.forgottenWords.filter(w => {
+        return w.id != id
+      })
     });
   }
 
