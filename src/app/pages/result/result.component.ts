@@ -24,7 +24,7 @@ export class ResultComponent{
 
     var el = this.retypeFields.find(rF => {
       var {id} = rF.nativeElement
-      return id === revealId
+      return id === id
     })
 
     if(el){
