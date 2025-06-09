@@ -178,17 +178,22 @@ export class ExerciseComponent implements OnInit {
 
   delete(id:string){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
-    this.http.delete(`${this.source}/${id}`,{headers,withCredentials:true}).subscribe(r => {
-      var index = this.words.findIndex(w => w.id === id)
+    this.http.delete(`${this.source}/${id}`,{headers,withCredentials:true}).subscribe({
+      next:r => {
+        var index = this.words.findIndex(w => w.id === id)
 
-      this.updateValue = this.words[index + 1]
+        this.updateValue = this.words[index + 1]
 
-      this.words = this.words.filter(w => w.id != id)
+        this.words = this.words.filter(w => w.id != id)
 
-      this.forgottenWords = this.forgottenWords.filter(w => {
-        return w.id != id
-      })
-    });
+        this.forgottenWords = this.forgottenWords.filter(w => {
+          return w.id != id
+        })
+      },
+      error:e => {
+        alert(e.message)
+      }
+    })
   }
 
   ngOnInit(){
