@@ -1,5 +1,5 @@
 import { shuffle } from 'lodash'
-import { Router } from '@angular/router'
+import { ActivatedRoute,Router } from '@angular/router'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { Component,OnInit,inject,HostListener } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { QuickSearchPipe } from '../../shared/pipe/quick_search/quick-search.pipe'
+
 @Component({
   selector: 'app-exercise',
   templateUrl: './exercise.component.html',
@@ -19,9 +20,14 @@ import { QuickSearchPipe } from '../../shared/pipe/quick_search/quick-search.pip
   ],
 })
 export class ExerciseComponent implements OnInit {
+  answer = ''
+  sentence = ''
+  exerciseMode = ''
   router = inject(Router)
+  route = inject(ActivatedRoute)
   index = 0
   newWord = ''
+  tmpWords:any[] = []
   words:any[] = []
   inSubmitProcess = false
   dropDownValue:any[] = []
@@ -38,7 +44,7 @@ export class ExerciseComponent implements OnInit {
   filter = ''
   compareMode = false
   searchType = "romaji"
-  
+
   async submit(params? : string[]){   
     this.inSubmitProcess = true
 
@@ -198,14 +204,28 @@ export class ExerciseComponent implements OnInit {
 
   ngOnInit(){
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
+
+    this.exerciseMode = this.route.snapshot.queryParamMap.get('mode') ?? 'flashcard'
+
     this.http.get<any[]>(this.source,{headers,withCredentials:true}).subscribe(r => {
-      this.words = shuffle(
-        r
-      )
-      this.updateValue = {
-        ...this.words[0]
+      if(this.exerciseMode === 'flashcard'){
+        this.words = shuffle(
+          r
+        )
+        this.updateValue = {
+          ...this.words[0]
+        }
+      }
+      if(this.exerciseMode === 'sentence'){
+        this. words = shuffle(r)
+        this.tmpWords = this.words
+
+        this.words.forEach(w => {
+          this.sentence = `${this.sentence}${w.original}`
+        })
       }
     });
+
   }
 
   goTo(value:string){
@@ -369,6 +389,41 @@ export class ExerciseComponent implements OnInit {
 
   copy(v:string){
     navigator.clipboard.writeText(v)
+  }
+
+  onQuantityChange(e:any){
+    var qty = e.target.value
+    this.sentence = ''
+    this.tmpWords = []
+    this.words = shuffle(this.words)
+    this.words.forEach((w,index) => {
+      if(index < parseInt(qty)){
+        this.tmpWords = [
+          ...this.tmpWords,
+          w
+        ]
+        this.sentence = `${this.sentence}${w.original}`
+      }
+    })
+  }
+
+  periksa(){
+    var sentence = ''
+    this.tmpWords.forEach(w => {
+      if(sentence === ''){
+        sentence = w.romaji
+      }
+      else{
+        sentence = `${sentence}/${w.romaji}`
+      }
+    })
+
+    if(sentence === this.answer){
+      alert('benar')
+    }
+    else{
+      alert('tidak benar')
+    }
   }
 }
 

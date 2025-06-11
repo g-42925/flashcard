@@ -73,7 +73,7 @@
 </div>
 
 
-<table *ngIf="reviewMode" class="min-w-full border border-gray-200 shadow-md overflow-hidden">
+<table *ngIf="exerciseMode === 'flashcard' &&  reviewMode" class="min-w-full border border-gray-200 shadow-md overflow-hidden">
   <thead class="text-gray-700">
     <tr>
     <th class="text-left px-6 py-3 text-sm font-semibold uppercase">Original</th>
@@ -92,7 +92,7 @@
   </tbody>
 </table>
 
-<div *ngIf="compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<div *ngIf="exerciseMode === 'flashcard' && compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
       @for(i of comparation; let index = $index; track i){
@@ -111,7 +111,7 @@
 
 
 
-<div *ngIf="!reviewMode && !quickSearchMode && !compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<div *ngIf="exerciseMode === 'flashcard' && !reviewMode && !quickSearchMode && !compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
       <div class="flex-1 bg-gray-600 flex flex-col gap-3 justify-center text-center" *ngIf="index>0">
@@ -203,3 +203,30 @@
   </div>
 </div>
 
+<div *ngIf="exerciseMode === 'sentence' && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+  <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
+    <div class="rounded-md flex-1 bg-black overflow-auto">
+      <div class="flex-1 p-6">
+        <p class="text-white text-lg">{{sentence}}</p>
+      </div>
+    </div>
+    
+    <form class="flex flex-row gap-3">
+      <input 
+        type="text" 
+        name="answer"
+        [(ngModel)]="answer"
+        class="flex-1 p-3 rounded-md outline-none border-2 border-black"
+        placeholder="put your answer here" 
+      />
+      <input 
+        type="text" 
+        (keyup)="onQuantityChange($event)"
+        class="p-3 rounded-md outline-none border-2 border-black w-[70px]"
+      />
+      <button type="button" (click)="periksa()" class="bg-black text-white rounded-md p-3">
+        Periksa
+      </button>
+    </form>
+  </div>
+</div>
