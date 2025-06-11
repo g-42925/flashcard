@@ -44,6 +44,7 @@ export class ExerciseComponent implements OnInit {
   filter = ''
   compareMode = false
   searchType = "romaji"
+  typingError = false
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -423,6 +424,26 @@ export class ExerciseComponent implements OnInit {
     }
     else{
       alert('tidak benar')
+    }
+  }
+
+  onAnswerChange(e:any){
+    var value = e.target.value
+    var sentence = ''
+    this.tmpWords.forEach(w => {
+      if(sentence === ''){
+        sentence = w.romaji
+      }
+      else{
+        sentence = `${sentence}/${w.romaji}`
+      }
+    })
+
+    if(!sentence.includes(this.answer)){
+      this.typingError = true
+    }
+    else{
+      this.typingError = false
     }
   }
 }
