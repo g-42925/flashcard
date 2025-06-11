@@ -420,7 +420,7 @@ export class ExerciseComponent implements OnInit {
       }
     })
 
-    if(!sentence.includes(this.answer)){
+    if(!sentence.startsWith(this.answer)){
       this.typingError = true
     }
     else{
