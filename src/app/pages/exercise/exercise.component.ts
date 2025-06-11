@@ -428,8 +428,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   onAnswerChange(e:any){
-    var value = e.target.value
     var sentence = ''
+    var value = e.target.value
     this.tmpWords.forEach(w => {
       if(sentence === ''){
         sentence = w.romaji
