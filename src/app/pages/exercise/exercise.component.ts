@@ -408,25 +408,6 @@ export class ExerciseComponent implements OnInit {
     })
   }
 
-  periksa(){
-    var sentence = ''
-    this.tmpWords.forEach(w => {
-      if(sentence === ''){
-        sentence = w.romaji
-      }
-      else{
-        sentence = `${sentence}/${w.romaji}`
-      }
-    })
-
-    if(sentence === this.answer){
-      alert('benar')
-    }
-    else{
-      alert('tidak benar')
-    }
-  }
-
   onAnswerChange(e:any){
     var sentence = ''
     var value = e.target.value
