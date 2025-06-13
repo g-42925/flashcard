@@ -412,7 +412,7 @@ export class ExerciseComponent implements OnInit {
       this.typingError = false
     }
 
-    if(this.answer.split('/').length > 5){
+    if(this.answer.split('/').length > 6){
       this.cut()
     }
   }
