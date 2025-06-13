@@ -45,6 +45,7 @@ export class ExerciseComponent implements OnInit {
   compareMode = false
   searchType = "romaji"
   typingError = false
+  romajiSentence = ''
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -219,10 +220,17 @@ export class ExerciseComponent implements OnInit {
       }
       if(this.exerciseMode === 'sentence'){
         this. words = shuffle(r)
-        this.tmpWords = this.words
 
         this.words.forEach(w => {
           this.sentence = `${this.sentence}${w.original}`
+        })
+        this.words.forEach(w => {
+          if(this.romajiSentence === ''){
+            this.romajiSentence = w.romaji
+          }
+          else{
+            this.romajiSentence = `${this.romajiSentence}/${w.romaji}`
+          }
         })
       }
     });
@@ -393,39 +401,42 @@ export class ExerciseComponent implements OnInit {
   }
 
   onQuantityChange(e:any){
-    var qty = e.target.value
-    this.sentence = ''
-    this.tmpWords = []
-    this.words = shuffle(this.words)
-    this.words.forEach((w,index) => {
-      if(index < parseInt(qty)){
-        this.tmpWords = [
-          ...this.tmpWords,
-          w
-        ]
-        this.sentence = `${this.sentence}${w.original}`
-      }
-    })
+    
   }
 
   onAnswerChange(e:any){
-    var sentence = ''
-    var value = e.target.value
-    this.tmpWords.forEach(w => {
-      if(sentence === ''){
-        sentence = w.romaji
-      }
-      else{
-        sentence = `${sentence}/${w.romaji}`
-      }
-    })
-
-    if(!sentence.startsWith(this.answer)){
+    if(!this.romajiSentence.startsWith(this.answer)){
       this.typingError = true
     }
     else{
       this.typingError = false
     }
+
+    if(this.answer.split('/').length > 5){
+      this.cut()
+    }
+  }
+
+  cut(){
+    this.sentence = ''
+    this.romajiSentence = ''
+    this.answer.split('/').forEach(answer => {
+      this.words = this.words.filter(w => {
+        return w.romaji != answer
+      })
+    })
+    this.words.forEach(w => {
+      this.sentence = `${this.sentence}${w.original}`
+    })
+    this.words.forEach(w => {
+      if(this.romajiSentence === ''){
+        this.romajiSentence = w.romaji
+      }
+      else{
+        this.romajiSentence = `${this.romajiSentence}/${w.romaji}`
+      }
+    })
+    this.answer = ''
   }
 }
 
