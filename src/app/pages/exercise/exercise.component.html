@@ -205,7 +205,7 @@
 
 <div *ngIf="exerciseMode === 'sentence' && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
-    <div class="rounded-md flex-1 bg-black p-4 overflow-auto relative">
+    <div class="rounded-md flex-1 bg-black p-4 overflow-hidden relative">
       <p class="text-white text-lg">{{sentence}}</p>
     </div>
     
@@ -218,12 +218,9 @@
         placeholder="put your answer here" 
         (keyup)="onAnswerChange($event)"
       />
-      <input 
-        type="text" 
-        placeholder="qty"
-        (keyup)="onQuantityChange($event)"
-        class="p-3 rounded-md outline-none border-2 border-black w-[70px]"
-      />
+      <button class="rounded-full aspect-square bg-black text-white p-3 w">
+        {{words.length}}
+      </button>
     </form>
   </div>
 </div>
