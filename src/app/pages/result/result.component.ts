@@ -39,16 +39,13 @@ export class ResultComponent{
   
   onChange(event:any,romaji:string,index:number){
     if(event.target.value === romaji && index != this.whsState.length -1){
+      var next = this.retypeFields[index+1]
+      if(next) next.nativeElement.focus()
 
-      var [el1,el2] = this.retypeFields      
-      
-      if(el2){
-        el2.nativeElement.focus()
-        this.whsState = this.whsState.filter((x,i) => {
-          return i != index
-        })        
-      }
-
+      this.whsState.filter((x,i) => {
+        return i != index
+      })
+    
 
       // var nextIndexWord = this.whsState[index + 1]
       // var el = this.retypeFields.find(rF => {
