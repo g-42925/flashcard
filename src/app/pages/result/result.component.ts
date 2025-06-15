@@ -42,7 +42,7 @@ export class ResultComponent{
 
       var [el1,el2] = this.retypeFields      
       
-      if(el){
+      if(el2){
         el2.nativeElement.focus()
         this.whsState = this.whsState.filter((x,i) => {
           return i != index
