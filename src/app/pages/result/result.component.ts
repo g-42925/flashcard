@@ -39,9 +39,9 @@ export class ResultComponent{
   
   onChange(event:any,romaji:string,index:number){
     if(event.target.value === romaji && index != this.whsState.length -1){
-      var [el] = this.retypeFields
-
       this.whsState = this.whsState.filter((x,i) => i != index)
+
+      var [el] = this.retypeFields      
       
       if(el) el.nativeElement.focus()
 
