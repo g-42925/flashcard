@@ -39,18 +39,23 @@ export class ResultComponent{
   
   onChange(event:any,romaji:string,index:number){
     if(event.target.value === romaji && index != this.whsState.length -1){
-      var nextIndexWord = this.whsState[index + 1]
-      var el = this.retypeFields.find(rF => {
-        var {id} = rF.nativeElement
-        return id === nextIndexWord.id
+      this.whsState[index] = this.whsState[index+1]
+      this.whsState.filter((state,i) => {
+        return i != index
       })
+
+      // var nextIndexWord = this.whsState[index + 1]
+      // var el = this.retypeFields.find(rF => {
+      //   var {id} = rF.nativeElement
+      //   return id === nextIndexWord.id
+      // })
       
-      if(el){
-        el.nativeElement.focus()
-        this.whsState = this.whsState.filter((x,i) => {
-          return i != index
-        })
-      }
+      // if(el){
+      //   el.nativeElement.focus()
+      //   this.whsState = this.whsState.filter((x,i) => {
+      //     return i != index
+      //   })
+      // }
     }
 
     if(event.target.value === romaji && index === this.whsState.length -1){
