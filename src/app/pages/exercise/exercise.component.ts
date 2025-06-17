@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { Component,OnInit,inject,HostListener } from '@angular/core';
+import { ViewChild,ElementRef,Component,OnInit,inject,HostListener } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { QuickSearchPipe } from '../../shared/pipe/quick_search/quick-search.pipe'
 
@@ -20,7 +20,7 @@ import { QuickSearchPipe } from '../../shared/pipe/quick_search/quick-search.pip
   ],
 })
 export class ExerciseComponent implements OnInit {
-  answer = ''
+  answer:any[] = []
   sentence = ''
   exerciseMode = ''
   router = inject(Router)
@@ -44,8 +44,8 @@ export class ExerciseComponent implements OnInit {
   filter = ''
   compareMode = false
   searchType = "romaji"
-  typingError = false
-  romajiSentence = ''
+
+  @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -224,17 +224,8 @@ export class ExerciseComponent implements OnInit {
         this.words.forEach(w => {
           this.sentence = `${this.sentence}${w.original}`
         })
-        this.words.forEach(w => {
-          if(this.romajiSentence === ''){
-            this.romajiSentence = w.romaji
-          }
-          else{
-            this.romajiSentence = `${this.romajiSentence}/${w.romaji}`
-          }
-        })
       }
     });
-
   }
 
   goTo(value:string){
@@ -296,8 +287,6 @@ export class ExerciseComponent implements OnInit {
       }
     }
 
-  
-
     if(event.key === 'ArrowRight') {
       var rule1 = !this.submitMode && !this.updateMode
       var rule2 = !this.compareMode && !this.reviewMode
@@ -317,6 +306,37 @@ export class ExerciseComponent implements OnInit {
       if(!this.updateMode){
         this.setForget()
         this.updateMode = true
+      }
+
+      if(this.exerciseMode === 'sentence'){
+        var selected = window.getSelection()
+        var reference = this.sentenceRef.nativeElement
+        var selectedString = selected ? selected?.toString() : ''
+        var [filter1] = this.words.filter(w => w.original === selectedString)
+
+        if(filter1){
+          this.words = this.words.filter(w =>  w.original != filter1.original)
+  
+          this.sentence = ''
+
+          this.words.forEach(w => {
+            this.sentence = `${this.sentence}${w.original}`
+          })
+
+          var [filter2] = this.answer.filter(w => {
+            return w === filter1.original
+          })
+
+          if(!filter2) this.answer = [
+            filter1,
+            ...this.answer
+          ]
+
+          setTimeout(() => {
+            reference.focus()
+            reference.setSelectionRange(0,0)
+          })
+        }
       }
     }
 
@@ -370,17 +390,10 @@ export class ExerciseComponent implements OnInit {
         }
       })
     }
-
   }
 
   tidy(){
     this.newWord = this.newWord.replace(/\n{2,}/g, "\n")
-  }
-
-  getDropDownValue(){
-    return this.words.map((w,index) => {
-      return `${index+1}. ${w.original} (${w.romaji})`
-    })
   }
 
   compare(i:any){
@@ -398,46 +411,22 @@ export class ExerciseComponent implements OnInit {
 
   copy(v:string){
     navigator.clipboard.writeText(v)
-  }
+  }  
 
-  onQuantityChange(e:any){
-    
-  }
-
-  onAnswerChange(e:any){
-    if(!this.romajiSentence.startsWith(this.answer)){
-      this.typingError = true
-    }
-    else{
-      this.typingError = false
-    }
-
-    if(this.answer.split('/').length > 6){
-      this.cut()
-    }
-  }
-
-  cut(){
+  undo(){
+    var last = this.answer[0]
+    var randIdx = Math.floor(Math.random() * (this.words.length - 1)) + 1;
     this.sentence = ''
-    this.romajiSentence = ''
-    this.answer.split('/').forEach(answer => {
-      this.words = this.words.filter(w => {
-        return w.romaji != answer
-      })
-    })
+    this.words.splice(randIdx,0,last)
     this.words.forEach(w => {
       this.sentence = `${this.sentence}${w.original}`
     })
-    this.words.forEach(w => {
-      if(this.romajiSentence === ''){
-        this.romajiSentence = w.romaji
-      }
-      else{
-        this.romajiSentence = `${this.romajiSentence}/${w.romaji}`
-      }
+    this.answer = this.answer.filter(a => {
+      return a.original != last.original
     })
-    this.answer = ''
   }
+
+
 }
 
 
