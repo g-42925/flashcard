@@ -428,7 +428,7 @@ export class ExerciseComponent implements OnInit {
 
  
   rightOrWrong(v:string,index:number){
-    if(v === 'right' ) this.words = this.filter(w => {
+    if(v === 'right' ) this.words = this.words.filter(w => {
       return w != index
     })
 
