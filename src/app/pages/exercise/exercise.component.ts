@@ -20,6 +20,7 @@ import { QuickSearchPipe } from '../../shared/pipe/quick_search/quick-search.pip
   ],
 })
 export class ExerciseComponent implements OnInit {
+  list = ''
   answer:any[] = []
   sentence = ''
   exerciseMode = ''
@@ -38,11 +39,8 @@ export class ExerciseComponent implements OnInit {
   forgottenWords:any[] = []
   previousSubmitted = ''
   source = environment.source
-  reviewMode = false
   quickSearchMode = false
-  comparation:any[] = []
   filter = ''
-  compareMode = false
   searchType = "romaji"
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
@@ -297,22 +295,10 @@ export class ExerciseComponent implements OnInit {
 
 
     if(event.key === 'Shift'){
-      if(this.updateMode){
-        setTimeout(() => {
-          this.updateMode = false
-        })
-      }
-      
-      if(!this.updateMode){
-        this.setForget()
-        this.updateMode = true
-      }
-
-      if(this.exerciseMode === 'sentence'){
-        var selected = window.getSelection()
-        var reference = this.sentenceRef.nativeElement
-        var selectedString = selected ? selected?.toString() : ''
-        var [filter1] = this.words.filter(w => w.original === selectedString)
+      var selected = window.getSelection()
+      var reference = this.sentenceRef.nativeElement
+      var selectedString = selected ? selected?.toString() : ''
+      var [filter1] = this.words.filter(w => w.original === selectedString)
 
         if(filter1){
           this.words = this.words.filter(w =>  w.original != filter1.original)
@@ -336,57 +322,24 @@ export class ExerciseComponent implements OnInit {
             reference.focus()
             reference.setSelectionRange(0,0)
           })
-        }
       }
     }
 
-
-    if(event.key === 'F1'){
-      if(this.compareMode && this.comparation.length > 0) {
-        this.comparation = []
-      }
- 
-      if(!this.compareMode && this.comparation.length < 1){
-        this.reviewMode = false
-        this.quickSearchMode = !this.quickSearchMode
-      }
-      else{
-        this.reviewMode = false
-        this.quickSearchMode = false
-        this.compareMode = !this.compareMode
-      }
-    }
 
     if(event.key === 'F2'){
-      this.reviewMode = false
-      this.compareMode = false
       this.quickSearchMode = !this.quickSearchMode
     }
 
-    if(event.key === 'F8'){
-      if(this.forgottenWords.length < 1){
-        alert('no mistake has been made this far')
-      }
-      else{
-        this.compareMode = false
-        this.quickSearchMode = false
-        this.reviewMode = !this.reviewMode
-      }
-    }
-
     if(event.key === 'F9'){
-      //this.forgottenWords = this.words
-      let list = '';
       this.words.forEach((w,index) => {
-        if(list !== ''){
+        if(this.list !== ''){
           list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
         }
         else{
-          list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+          this.list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
         }
         if(index === 499){
-          navigator.clipboard.writeText(list)
-            .then(r => alert('done'))
+          navigator.clipboard.writeText(list).then(r => alert('done'))
         }
       })
     }
@@ -396,19 +349,6 @@ export class ExerciseComponent implements OnInit {
     this.newWord = this.newWord.replace(/\n{2,}/g, "\n")
   }
 
-  compare(i:any){
-    var [filter] = this.comparation.filter(
-      w => w.original === i.original
-    )
-    
-    if(!filter && this.comparation.length < 2){
-      this.comparation = [
-        ...this.comparation,
-        i
-      ]
-    }
-  }
-
   copy(v:string){
     navigator.clipboard.writeText(v)
   }  
@@ -416,8 +356,10 @@ export class ExerciseComponent implements OnInit {
   undo(){
     var last = this.answer[0]
     var randIdx = Math.floor(Math.random() * (this.words.length - 1)) + 1;
+    
     this.sentence = ''
     this.words.splice(randIdx,0,last)
+    
     this.words.forEach(w => {
       this.sentence = `${this.sentence}${w.original}`
     })
@@ -427,20 +369,14 @@ export class ExerciseComponent implements OnInit {
   }
 
  
-  rightOrWrong(v:string,index:number){
-    if(v === 'right' ) this.words = this.words.filter(w => {
-      return w != index
-    })
-
-    if(v === 'wrong'){
-      var random = Math.random()
-      var length = this.words.length+1
-      var word = this.words[index]
-      var idx = Math.floor(random * length)
-      this.words = this.words.filter(w => w != index)
-      this.words = this.words.splice(idx,0,word)
-
-    }
+  shift(idx:number){
+    var random = Math.random()
+    var length = this.words.length+1
+    var word = this.words[index]
+    var idx = Math.floor(random * length)
+    
+    this.words = this.words.filter(w => w != index)
+    this.words = this.words.splice(idx,0,word)
   }
 }
 

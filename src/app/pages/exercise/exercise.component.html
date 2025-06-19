@@ -92,26 +92,8 @@
   </tbody>
 </table>
 
-<div *ngIf="exerciseMode === 'flashcard' && compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
-  <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
-    <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
-      @for(i of comparation; let index = $index; track i){
-        <div class="flex-1 bg-black flex flex-col gap-3 justify-center text-center">
-          <span class="text-white text-8xl">
-            {{i.original}}
-          </span>
-          <span class="text-white text-6xl">
-            {{i.romaji}}
-          </span>
-        </div>
-      }
-    </div>
-  </div>
-</div>
 
-
-
-<div *ngIf="exerciseMode === 'flashcard' && !reviewMode && !quickSearchMode && !compareMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<div *ngIf="exerciseMode === 'flashcard' && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
       <div class="flex-1 bg-gray-600 flex flex-col gap-3 justify-center text-center" *ngIf="index>0">
@@ -145,8 +127,8 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
         </svg>
       </button>
-      <button (click)="setForget()" class="p-3 flex-1 rounded-md bg-black text-white">
-        忘れちゃった ({{forgottenWords.length}})
+      <button (click)="Shift(index)" class="p-3 flex-1 rounded-md bg-black text-white">
+        忘れちゃった
       </button>
       <button class="bg-black rounded-full p-3" (click)="setNewIndex('next')">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
