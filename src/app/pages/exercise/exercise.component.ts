@@ -354,7 +354,7 @@ export class ExerciseComponent implements OnInit {
     var randomIndex = Math.floor(random * length)
     
     this.words = this.words.filter(w => w != index-1)
-    this.words = this.words.splice(randomIndex,0,word)
+    //this.words = this.words.splice(randomIndex,0,word)
   }
 }
 
