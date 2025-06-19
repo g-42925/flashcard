@@ -355,6 +355,10 @@ export class ExerciseComponent implements OnInit {
     this.words = this.words.filter(w => w.id != id)
     this.words.splice(randomIndex,0,words[0])
   }
+
+  ok(id:number){
+    this.words = this.words.filter(w => w.id != id)
+  }
 }
 
 
