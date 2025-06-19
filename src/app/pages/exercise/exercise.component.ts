@@ -238,20 +238,6 @@ export class ExerciseComponent implements OnInit {
     this.quickSearchMode = false
   }
 
-  setForget(){
-    var word = this.words[this.index]
-    var [filter] = this.forgottenWords.filter(
-      w => w.original === word.original
-    )
-
-    if(!filter){
-      this.forgottenWords = [
-        ...this.forgottenWords,
-        this.words[this.index]
-      ]
-    }
-  }
-
   setNewIndex(eventType:string){
     if(eventType === 'previously'){
       this.index = this.index-1
@@ -268,11 +254,6 @@ export class ExerciseComponent implements OnInit {
     this.updateValue = {
       ...this.words[this.index]
     }
-  }
-
-  viewResult(){
-    var state = {state:shuffle(this.forgottenWords)}
-    this.router.navigateByUrl('/result',{state});
   }
 
   @HostListener('window:keydown',['$event']) handleKeyDown(event: KeyboardEvent) {
@@ -333,13 +314,13 @@ export class ExerciseComponent implements OnInit {
     if(event.key === 'F9'){
       this.words.forEach((w,index) => {
         if(this.list !== ''){
-          list = `${list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+          list = `${this.list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
         }
         else{
           this.list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
         }
         if(index === 499){
-          navigator.clipboard.writeText(list).then(r => alert('done'))
+          navigator.clipboard.writeText(this.list).then(r => alert('done'))
         }
       })
     }
