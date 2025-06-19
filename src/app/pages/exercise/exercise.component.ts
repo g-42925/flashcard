@@ -354,7 +354,7 @@ export class ExerciseComponent implements OnInit {
     var idx = Math.floor(random * length)
     
     this.words = this.words.filter(w => w != idx)
-    this.words = this.words.splice(idx,0,word)
+    //this.words = this.words.splice(idx,0,word)
   }
 }
 
