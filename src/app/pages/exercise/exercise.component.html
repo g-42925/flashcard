@@ -106,7 +106,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
         </svg>
       </button>
-      <button (click)="shift(index)" class="p-3 flex-1 rounded-md bg-black text-white">
+      <button (click)="shift(words[index-1].id)" class="p-3 flex-1 rounded-md bg-black text-white">
         忘れちゃった
       </button>
       <button class="bg-black rounded-full p-3" (click)="setNewIndex('next')">

@@ -347,13 +347,12 @@ export class ExerciseComponent implements OnInit {
   }
 
  
-  shift(index:number){
+  shift(id:any){
     var random = Math.random()
     var length = this.words.length+1
     var word = this.words[index-1]
     var randomIndex = Math.floor(random * length)
-    
-    setTimeout(() => this.words = this.words.filter(w => w != index-1))
+    this.words = this.words.filter(w => w.id != id)
     //this.words = this.words.splice(randomIndex,0,word)
   }
 }
