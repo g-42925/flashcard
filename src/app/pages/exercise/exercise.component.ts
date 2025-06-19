@@ -314,7 +314,7 @@ export class ExerciseComponent implements OnInit {
     if(event.key === 'F9'){
       this.words.forEach((w,index) => {
         if(this.list !== ''){
-          list = `${this.list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
+          this.list = `${this.list}\n${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
         }
         else{
           this.list = `${w.original} / ${w.hiragana} / ${w.romaji} / ${w.mean}`;
