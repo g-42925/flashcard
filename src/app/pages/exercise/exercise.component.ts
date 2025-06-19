@@ -426,7 +426,22 @@ export class ExerciseComponent implements OnInit {
     })
   }
 
+ 
+  rightOrWrong(v:string,index:number){
+    if(v === 'right' ) this.words = this.filter(w => {
+      return w != index
+    })
 
+    if(v === 'wrong'){
+      var random = Math.random()
+      var length = this.words.length+1
+      var word = this.words[index]
+      var idx = Math.floor(random * length)
+      this.words = this.filter(w => w != index)
+      this.words = this.words.splice(idx,0,word)
+
+    }
+  }
 }
 
 

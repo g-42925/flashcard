@@ -121,9 +121,14 @@
         <span class="text-white text-6xl">
           {{words[index-1]?.romaji}}
         </span>
-        <span class="text-white text-6xl">
-          {{words[index-1]?.mean}}
-        </span>
+        <div class="flex flex-row gap-3">
+          <button (click)="rightOrWrong('right',index)" class="text-white bg-black p-3 rounded-md">
+            Benar
+          </button>
+          <button (click)="rightOrWrong('wrong',index)" class="text-white bg-red-900 p-3 rounded-md">
+            Salah
+          </button>
+        </div>
       </div>
       <div class="flex-1 flex flex-col gap-3 justify-center text-center relative">
         <span class="text-white text-8xl">
