@@ -111,7 +111,7 @@
           @for(x of forgottenWords; let index = $index; track x){
             <tr>
               <td class="text-center">{{index+1}}</td>
-              <td class="text-center">{{x.original}}</td>
+              <td class="text-center" (click)="goTo(x.original)" class="hover:cursor-pointer">{{x.original}}</td>
             </tr>
           }
         </tbody>
