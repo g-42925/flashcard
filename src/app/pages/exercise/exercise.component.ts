@@ -55,7 +55,7 @@ export class ExerciseComponent implements OnInit {
     if(!filter && this.comparation.length < 3){
       this.comparation = [
         ...this.comparation,
-        filter2
+        filter
       ]
     }
   }
