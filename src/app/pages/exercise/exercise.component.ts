@@ -384,7 +384,7 @@ export class ExerciseComponent implements OnInit {
     })
   }
 
-  skip(v:string){
+  skip(idx:number,v:string){
     var [filter] = this.forgottenWords.filter(w => {
       return w.original === v
     })
