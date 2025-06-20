@@ -44,6 +44,7 @@ export class ExerciseComponent implements OnInit {
   searchType = "romaji"
   comparation:any[] = []
   comparationMode = false
+  quickReviewMode = false
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
