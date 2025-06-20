@@ -278,29 +278,28 @@ export class ExerciseComponent implements OnInit {
       var selectedString = selected ? selected?.toString() : ''
       var [filter1] = this.words.filter(w => w.original === selectedString)
 
+      if(filter1){
+        this.words = shuffle(this.words.filter(w =>  w.original != filter1.original))
 
-        if(filter1){
-          this.words = shuffle(this.words.filter(w =>  w.original != filter1.original))
-  
-          this.sentence = ''
+        this.sentence = ''
 
-          this.words.forEach(w => {
-            this.sentence = `${this.sentence}${w.original}`
-          })
+        this.words.forEach(w => {
+          this.sentence = `${this.sentence}${w.original}`
+        })
 
-          var [filter2] = this.answer.filter(w => {
+        var [filter2] = this.answer.filter(w => {
             return w === filter1.original
-          })
+        })
 
-          if(!filter2) this.answer = [
-            filter1,
-            ...this.answer
-          ]
+        if(!filter2) this.answer = [
+          filter1,
+          ...this.answer
+        ]
 
-          setTimeout(() => {
-            reference.focus()
-            reference.setSelectionRange(0,0)
-          })
+        setTimeout(() => {
+          reference.focus()
+          reference.setSelectionRange(0,0)
+        })
       }
     }
 
@@ -347,14 +346,13 @@ export class ExerciseComponent implements OnInit {
     })
   }
 
+  skip(idx:number){
+    this.forgottenWords = [
+      this.words[index],
+      ...this.forgottenWords,
+    ]
+  }
  
-  shift(id:any){
-    
-  }
-
-  ok(id:number){
-    this.words = this.words.filter(w => w.id != id)
-  }
 }
 
 

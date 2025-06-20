@@ -105,15 +105,13 @@
           <tr>
             <th class="text-center px-6 py-3 text-sm font-semibold uppercase">No.</th>        
             <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Original</th>
-            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
           </tr>
         </thead>
         <tbody>
-          @for(i of answer; let index = $index; track i){
+          @for(x of forgottenWords; let index = $index; track i){
             <tr>
-              <td class="text-center">{{index+1}}</td>
-              <td class="text-center font-bold">{{i.original}}</td>
-              <td class="text-center">{{i.romaji}}</td>
+              <td>{{index+1}}</td>
+              <td>{{x.original}}</td>
             </tr>
           }
         </tbody>
@@ -126,7 +124,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
         </svg>
       </button>
-      <button (click)="shift(words[index-1].id)" class="p-3 flex-1 rounded-md bg-black text-white">
+      <button (click)="skip(index-1)"class="p-3 flex-1 rounded-md bg-black text-white">
         忘れちゃった
       </button>
       <button class="bg-black rounded-full p-3" (click)="setNewIndex('next')">
