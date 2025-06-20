@@ -233,7 +233,7 @@ export class ExerciseComponent implements OnInit {
 
     this.updateValue = this.words[index]
 
-    this.index = index
+    this.index = index + 1
     
     this.quickSearchMode = false
   }
