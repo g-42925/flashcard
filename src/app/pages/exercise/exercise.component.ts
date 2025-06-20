@@ -342,7 +342,7 @@ export class ExerciseComponent implements OnInit {
 
     if(event.key === 'F8'){
       this.quickSearchMode = false
-      this.comparationmode = false
+      this.comparationMode = false
       this.quickReviewMode = !this.quickReviewMode
     }
 
