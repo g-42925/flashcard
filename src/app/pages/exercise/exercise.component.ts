@@ -278,10 +278,13 @@ export class ExerciseComponent implements OnInit {
       var selectedString = selected ? selected?.toString() : ''
       var [filter1] = this.words.filter(w => w.original === selectedString)
 
+
         if(filter1){
           this.words = this.words.filter(w =>  w.original != filter1.original)
   
           this.sentence = ''
+
+          this.words = shuffle(this.words)
 
           this.words.forEach(w => {
             this.sentence = `${this.sentence}${w.original}`
