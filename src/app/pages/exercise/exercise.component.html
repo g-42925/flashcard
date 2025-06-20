@@ -73,23 +73,6 @@
 </div>
 
 <div *ngIf="quickReviewMode">
-	<div class="flex flex-col gap-3 p-3" *ngIf="quickSearchMode" >
-  <div class="flex flex-row gap-3">
-
-    <input 
-      type="text"
-      [(ngModel)]="filter"
-      placeholder="quick search with {{searchType}}"
-      class="border-2 border-black p-3 w-full outline-none rounded-md"
-    >
-
-    <select class="w-[200px] p-3 rounded-sm">
-      <option (click)="searchType=`romaji`">Romaji</option>
-      <option (click)="searchType=`kanji`">Kanji</option>      
-    </select>
-
-  </div>
-
   <table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
     <thead class="text-gray-700">
       <tr>
