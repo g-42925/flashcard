@@ -108,7 +108,7 @@
           </tr>
         </thead>
         <tbody>
-          @for(x of forgottenWords; let index = $index; track i){
+          @for(x of forgottenWords; let index = $index; track x){
             <tr>
               <td>{{index+1}}</td>
               <td>{{x.original}}</td>
