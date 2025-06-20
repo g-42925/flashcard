@@ -47,9 +47,9 @@ export class ExerciseComponent implements OnInit {
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
-  compare(v:string){
+  compare(i:any){
     var [filter] = this.comparation.filter(c => {
-      return c.original === v
+      return c.original === v.original
     })
 
     if(!filter && this.comparation.length < 3){
