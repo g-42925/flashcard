@@ -42,8 +42,27 @@ export class ExerciseComponent implements OnInit {
   quickSearchMode = false
   filter = ''
   searchType = "romaji"
+  comparation:any[]
+  comparationMode:false
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
+
+  compare(index:number){
+    var [filter1] = this.words.filter((w,i) => {
+      return index === i
+    })
+
+    var [filter2] = this.comparation.filter(c => {
+      return c.original === filter1.original
+    })
+
+    if(!filter2 && filter.length < 3){
+      this.comparation = [
+        ...this.comparation,
+        filter1
+      ]
+    }
+  }
 
   async submit(params? : string[]){   
     this.inSubmitProcess = true
@@ -301,6 +320,11 @@ export class ExerciseComponent implements OnInit {
           reference.setSelectionRange(0,0)
         })
       }
+    }
+
+    if(event.key === 'F1'){
+      this.comparationMode = !this.comparationMode
+      this.quickSearchMode = false
     }
 
 

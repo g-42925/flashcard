@@ -33,7 +33,7 @@
           <td class="px-6 py-4">{{i.romaji}}</td>
           <td class="px-6 py-4">{{i.mean}}</td>
           <td class="flex flex-row gap-2 items-center h-[50px]">
-            <button class="bg-black rounded-full p-1 active:bg-red-900">
+            <button class="bg-black rounded-full p-1 active:bg-red-900" (click)="compare(index)">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 text-white">
                 <path d="M10.75 4.75a.75.75 0 0 0-1.5 0v4.5h-4.5a.75.75 0 0 0 0 1.5h4.5v4.5a.75.75 0 0 0 1.5 0v-4.5h4.5a.75.75 0 0 0 0-1.5h-4.5v-4.5Z" />
              </svg>
@@ -72,7 +72,25 @@
   </table>
 </div>
 
-<div *ngIf="exerciseMode === 'flashcard' && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+<div *ngIf="comparationMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
+  <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
+    <div class="rounded-md flex-1 flex flex-row bg-black divide-x">
+      @for(x of comparation; let index = $index; track x){
+        <div class="flex-1 flex flex-col gap-3 justify-center text-center relative">
+          <span class="text-white text-6xl">
+            {{x.original}}
+          </span>
+
+          <span class="text-white text-4xl">
+            {{x.romaji}}
+          </span>
+        </div>
+      }
+    </div>
+  </div>
+</div>
+
+<div *ngIf="exerciseMode === 'flashcard' && !quickSearchMode && !comparationMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
     <div class="rounded-md flex-1 flex flex-row bg-black divide-x">
       <div class="flex-1 bg-gray-600 flex flex-col gap-3 justify-center text-center" *ngIf="index>0">
@@ -98,24 +116,6 @@
            <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
           </svg>
         </button>   
-      </div>
-      <div class="bg-black rounded-md p-3 overflow-auto flex-1 flex flex-col gap-3">
-        <table class="text-white w-full">
-        <thead>
-          <tr>
-            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">No.</th>        
-            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Original</th>
-          </tr>
-        </thead>
-        <tbody>
-          @for(x of forgottenWords; let index = $index; track x){
-            <tr>
-              <td class="text-center">{{index+1}}</td>
-              <td (click)="goTo(x.original)" class="hover:cursor-pointer text-center">{{x.original}}</td>
-            </tr>
-          }
-        </tbody>
-      </table> 
       </div>
     </div>
     <div class="flex flex-row gap-3">
