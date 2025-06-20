@@ -348,7 +348,7 @@ export class ExerciseComponent implements OnInit {
 
   skip(idx:number){
     this.forgottenWords = [
-      this.words[index],
+      this.words[idx],
       ...this.forgottenWords,
     ]
   }
