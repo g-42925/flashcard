@@ -339,6 +339,12 @@ export class ExerciseComponent implements OnInit {
       this.comparationMode  = false
     }
 
+    if(event.key === 'F8'){
+      this.quickSearchMode = false
+      this.comparationmode = false
+      this.quickReviewMode = !this.quickReviewMode
+    }
+
     if(event.key === 'F9'){
       this.words.forEach((w,index) => {
         if(this.list !== ''){
