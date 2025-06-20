@@ -384,13 +384,13 @@ export class ExerciseComponent implements OnInit {
     })
   }
 
-  skip(idx:number){
-    var [filter] = this.forgottenWords.filter((w,i) => {
-      return i === idx
+  skip(v:string){
+    var [filter] = this.forgottenWords.filter(w => {
+      return w.original === v
     })
 
     if(!filter) this.forgottenWords = [
-      filter,
+      this.words[idx],
       ...this.forgottenWords,
     ]
   }
