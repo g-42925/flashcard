@@ -42,8 +42,8 @@ export class ExerciseComponent implements OnInit {
   quickSearchMode = false
   filter = ''
   searchType = "romaji"
-  comparation:any[]
-  comparationMode:false
+  comparation:any[] = []
+  comparationMode = false
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
@@ -56,7 +56,7 @@ export class ExerciseComponent implements OnInit {
       return c.original === filter1.original
     })
 
-    if(!filter2 && filter.length < 3){
+    if(!filter2 && this.comparation.length < 3){
       this.comparation = [
         ...this.comparation,
         filter1
