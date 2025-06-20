@@ -389,10 +389,12 @@ export class ExerciseComponent implements OnInit {
       return w.original === v
     })
 
-    if(!filter) this.forgottenWords = [
-      this.words[idx],
-      ...this.forgottenWords,
-    ]
+    if(!filter) {
+      this.forgottenWords = [
+        this.words[idx],
+        ...this.forgottenWords,
+      ] 
+    }
   }
  
 }
