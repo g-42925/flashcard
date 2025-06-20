@@ -385,7 +385,11 @@ export class ExerciseComponent implements OnInit {
   }
 
   skip(idx:number){
-    this.forgottenWords = [
+    var [filter] = this.forgottenWords.filter((w,i) => {
+      return i === idx
+    })
+
+    if(!filter) this.forgottenWords = [
       this.words[idx],
       ...this.forgottenWords,
     ]
