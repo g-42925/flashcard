@@ -319,13 +319,24 @@ export class ExerciseComponent implements OnInit {
     }
 
     if(event.key === 'F1'){
+      if(this.comparation.length < 1){
+        this.quickSearchMode = true
+      }
+
+      if(this.comparationMode){
+        this.comparation = []
+      }
+
+
       this.comparationMode = !this.comparationMode
+      
       this.quickSearchMode = false
     }
 
 
     if(event.key === 'F2'){
       this.quickSearchMode = !this.quickSearchMode
+      this.comparationMode  = false
     }
 
     if(event.key === 'F9'){
