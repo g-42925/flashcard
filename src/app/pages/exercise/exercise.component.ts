@@ -49,13 +49,13 @@ export class ExerciseComponent implements OnInit {
 
   compare(i:any){
     var [filter] = this.comparation.filter(c => {
-      return c.original === v.original
+      return c.original === i.original
     })
 
     if(!filter && this.comparation.length < 3){
       this.comparation = [
         ...this.comparation,
-        filter
+        i
       ]
     }
   }
