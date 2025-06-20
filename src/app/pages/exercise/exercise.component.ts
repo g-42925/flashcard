@@ -280,11 +280,9 @@ export class ExerciseComponent implements OnInit {
 
 
         if(filter1){
-          this.words = this.words.filter(w =>  w.original != filter1.original)
+          this.words = shuffle(this.words.filter(w =>  w.original != filter1.original))
   
           this.sentence = ''
-
-          this.words = shuffle(this.words)
 
           this.words.forEach(w => {
             this.sentence = `${this.sentence}${w.original}`
@@ -354,7 +352,6 @@ export class ExerciseComponent implements OnInit {
     var random = Math.random()
     var length = this.words.length+1
     var words = this.words.filter(w => w.id === id)
-    var randomIndex = Math.floor(random * length)
     this.words = this.words.filter(w => w.id != id)
     this.words.splice(randomIndex,0,words[0])
   }

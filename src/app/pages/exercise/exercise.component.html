@@ -74,7 +74,7 @@
 
 <div *ngIf="exerciseMode === 'flashcard' && !quickSearchMode" class="relative h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-col gap-6">
-    <div class="rounded border-2 border-black flex-1 flex flex-row bg-black divide-x">
+    <div class="rounded-md flex-1 flex flex-row bg-black divide-x">
       <div class="flex-1 bg-gray-600 flex flex-col gap-3 justify-center text-center" *ngIf="index>0">
         <span class="text-white text-8xl">
           {{words[index-1]?.original}}
@@ -99,15 +99,23 @@
           </svg>
         </button>   
       </div>
+      <div class="bg-black rounded-md p-3 overflow-auto flex-1 flex flex-col gap-3">
+        <table class="text-white w-full">
+        <thead>
+          <tr>
+            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">No.</th>        
+            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Original</th>
+            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Romaji</th>
+          </tr>
+        </thead>
+      </table> 
+      </div>
     </div>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
           <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
         </svg>
-      </button>
-      <button (click)="ok(words[index-1].id)"class="p-3 flex-1 rounded-md bg-black text-white">
-        正解
       </button>
       <button (click)="shift(words[index-1].id)" class="p-3 flex-1 rounded-md bg-black text-white">
         忘れちゃった
@@ -199,8 +207,7 @@
             </tr>
           }
         </tbody>
-      </table> 
-
+      </table>
     </div>
   </div>
 </div>
