@@ -408,7 +408,11 @@ export class ExerciseComponent implements OnInit {
       ] 
     }
   }
- 
+
+  review(){
+  	var state = this.forgottenWords
+  	this.router.navigate(['/result'],{state:state})
+  }
 }
 
 
