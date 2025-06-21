@@ -86,10 +86,10 @@
     <tbody class="text-gray-800">
       @for(i of forgottenWords; let index = $index; track i ){
         <tr class="border-t border-gray-200 hover:bg-gray-50">
-          <td class="px-6 py-4">{{index+1}}</td>        
-          <td>{{i.original}}</td>
-          <td class="px-6 py-4">{{i.romaji}}</td>
-          <td class="px-6 py-4">{{i.mean}}</td>
+          <td class="px-6 py-4 text-center">{{index+1}}</td>        
+          <td class="text-center">{{i.original}}</td>
+          <td class="px-6 py-4 text-center">{{i.romaji}}</td>
+          <td class="px-6 py-4 text-center">{{i.mean}}</td>
         </tr> 
       }
     </tbody>
