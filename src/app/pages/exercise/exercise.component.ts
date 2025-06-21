@@ -333,11 +333,11 @@ export class ExerciseComponent implements OnInit {
       if(this.comparation.length < 1){
         this.quickSearchMode = true
       }
-      else{
+      else{        
+        this.quickReviewMode = false
+        this.quickSearchMode = false
         this.comparationMode = !this.comparationMode
       }
-      
-      this.quickSearchMode = false
     }
 
 
