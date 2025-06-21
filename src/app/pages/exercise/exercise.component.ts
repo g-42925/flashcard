@@ -44,7 +44,7 @@ export class ExerciseComponent implements OnInit {
   searchType = "romaji"
   comparation:any[] = []
   comparationMode = false
-  quickReviewMode = 
+  quickReviewMode = false
   inDeletingProcess = false
   inUpdateProcess = false
 
