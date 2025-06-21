@@ -288,7 +288,7 @@ export class ExerciseComponent implements OnInit {
     }
 
 
-    if(event.key === 'Shift'){
+    if(event.key === 'Shift' && this.exerciseMode === 'sentence'){
       var selected = window.getSelection()
       var reference = this.sentenceRef.nativeElement
       var selectedString = selected ? selected?.toString() : ''
@@ -317,6 +317,12 @@ export class ExerciseComponent implements OnInit {
           reference.setSelectionRange(0,0)
         })
       }
+    }
+
+    if(event.key === 'Shift' && this.exerciseMode === 'flashcard'){
+      if(!this.updateMode) this.skip(this.index)
+
+      this.updateMode === !this.updateMode
     }
 
     if(event.key === 'F1'){
