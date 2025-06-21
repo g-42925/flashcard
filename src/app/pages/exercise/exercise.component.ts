@@ -322,7 +322,7 @@ export class ExerciseComponent implements OnInit {
     if(event.key === 'Shift' && this.exerciseMode === 'flashcard'){
       if(!this.updateMode) this.skip(this.index)
 
-      this.updateMode === !this.updateMode
+      this.updateMode = !this.updateMode
     }
 
     if(event.key === 'F1'){
