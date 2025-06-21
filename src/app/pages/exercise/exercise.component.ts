@@ -44,7 +44,9 @@ export class ExerciseComponent implements OnInit {
   searchType = "romaji"
   comparation:any[] = []
   comparationMode = false
-  quickReviewMode = false
+  quickReviewMode = 
+  inDeletingProcess = false
+  inUpdateProcess = false
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
@@ -180,25 +182,36 @@ export class ExerciseComponent implements OnInit {
 
   
   update(){
+    this.inUpdateProcess = true
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
     var url = `${this.source}/${this.words[this.index].id}`
     var config = {headers,withCredentials:true}
-   
-    this.http.put<any[]>(`${this.source}/${this.updateValue.id}`,this.updateValue,config).subscribe(r => {
-      this.updateMode = false
 
-      var index1 = this.words.findIndex(w => w.id === this.words[this.index].id)
+    this.http.put<any[]>(`${this.source}/${this.updateValue.id}`,this.updateValue,config).subscribe({
+      next:r => {
+        this.updateMode = false
+        this.inUpdateProcess = false
 
-      var index2 = r.findIndex(w => w.id === this.words[this.index].id)
+        var index1 = this.words.findIndex(w => w.id === this.words[this.index].id)
 
-      var index3 = this.forgottenWords.findIndex(w => w.id === this.words[this.index].id)
+        var index2 = r.findIndex(w => w.id === this.words[this.index].id)
 
-      this.words[index1] = r[index2]
-      this.forgottenWords[index3] = r[index2]
-    });
+        var index3 = this.forgottenWords.findIndex(w => w.id === this.words[this.index].id)
+
+        this.words[index1] = r[index2]
+        this.forgottenWords[index3] = r[index2]         
+      },
+      error:e => {
+      	alert(e.message)
+      	this.updateMode = false
+      	this.inUpdateProcess = false
+      }
+    })
   }
 
   delete(id:string){
+    this.inDeletingProcess = true
+
     var headers = new HttpHeaders({'ngrok-skip-browser-warning':'ok'})
     this.http.delete(`${this.source}/${id}`,{headers,withCredentials:true}).subscribe({
       next:r => {
@@ -211,9 +224,12 @@ export class ExerciseComponent implements OnInit {
         this.forgottenWords = this.forgottenWords.filter(w => {
           return w.id != id
         })
+
+        this.inDeletingProcess = false
       },
       error:e => {
         alert(e.message)
+        this.inDeletingProcess = false
       }
     })
   }
