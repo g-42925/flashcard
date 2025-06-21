@@ -410,7 +410,7 @@ export class ExerciseComponent implements OnInit {
   }
 
   review(){
-  	this.router.navigateByUrl(['/result'],{state:{state:this.forgottenWords})
+  	this.router.navigateByUrl(['/result'],{state:{state:this.forgottenWords}})
   }
 }
 
