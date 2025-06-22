@@ -12,7 +12,6 @@
       <option (click)="searchType=`romaji`">Romaji</option>
       <option (click)="searchType=`kanji`">Kanji</option>      
     </select>
-
   </div>
 
   <table class="min-w-full border border-gray-200 shadow-md overflow-hidden">
@@ -131,11 +130,11 @@
         </span>
       </div>
       <div class="flex-1 bg-black flex flex-col justify-center text-center relative p-10">
-        <span class="text-white text-9xl">
+        <span class="text-white text-8xl">
           {{words[index]?.original}}
         </span>
         <span class="absolute top-5 left-5 text-white">
-          {{index+1}} / {{words.length}}
+          {{index+1}} / {{words.length}} (<span class="font-bold">{{forgottenWords.length > 0 ? forgottenWords.length:0}}</span>)
         </span> 
         <button class="absolute top-5 right-5" (click)="updateMode=true">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
@@ -151,7 +150,7 @@
         </svg>
       </button>
       <button (click)="skip(index-1)"class="p-3 flex-1 rounded-md bg-black text-white">
-        忘れちゃった
+        Tidak tahu!
       </button>
       <button class="bg-black rounded-full p-3" (click)="setNewIndex('next')">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
