@@ -23,6 +23,14 @@ export class QuickSearchPipe implements PipeTransform {
       })
     }
 
+    if(args.searchType === 'mean'){
+      value.forEach((word,index) => {
+        if(word.mean.includes(args.filter)){
+          tmp.push(word)
+        }
+      })
+    }
+
     return tmp
   }
 
