@@ -426,7 +426,8 @@ export class ExerciseComponent implements OnInit {
   }
 
   review(){
-  	this.router.navigate(['/result'],{state:{state:this.forgottenWords}})
+    var state = shuffle(this.forgottenWords)
+  	this.router.navigate(['/result'],{state:{state}})
   }
 }
 
