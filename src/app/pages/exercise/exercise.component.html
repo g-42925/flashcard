@@ -131,7 +131,7 @@
         </span>
       </div>
       <div class="flex-1 bg-black flex flex-col justify-center text-center relative p-10">
-        <span class="text-white text-8xl bg-red-900" (mouseenter)="kunOnMode=true" (mouseleave)="kunOnMode=false">
+        <span class="text-white text-8xl bg-green-900" (click)="kunOnMode=!kunOnMode">
           {{words[index].original}}
         </span>
         <span class="absolute top-5 left-5 text-white">
