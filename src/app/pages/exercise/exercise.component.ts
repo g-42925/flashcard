@@ -48,6 +48,7 @@ export class ExerciseComponent implements OnInit {
   inDeletingProcess = false
   inUpdateProcess = false
   kunOnMode = false
+  
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
