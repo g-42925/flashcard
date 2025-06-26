@@ -133,7 +133,7 @@
       <div class="flex-1 bg-black flex flex-col justify-center text-center relative p-10">
         <div class=""flex flex-row>
           @for(i of words[index].original.split(''); track i){
-            <span class="text-white text-8xl bg-red-900" (click)="kunOnMode=!kunOnMode">
+            <span class="text-white text-8xl bg-green-900" (click)="kunOnMode=!kunOnMode">
               {{i}}
             </span>
           }
@@ -148,7 +148,7 @@
         </button>   
       </div>      
     </div>
-    <div class="bg-black text-white p-3 rounded-md">
+    <div class="bg-black text-white p-3 rounded-md" *ngIf="kunOnMode">
       kunyomi dan onyomi
     </div>
     <div class="flex flex-row gap-3">
