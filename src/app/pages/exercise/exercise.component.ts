@@ -435,7 +435,8 @@ export class ExerciseComponent implements OnInit {
 
   yomikataFetch(v:string){
     this.yomi = []
-    v.split('').forEach(c => {
+    var chars = v.split('')
+    chars.forEach(c => {
       this.http.get<any>(`https://kanjiapi.dev/v1/kanji/${c}`).subscribe({
         next: r => {
           this.yomi = [
