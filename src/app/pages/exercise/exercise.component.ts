@@ -455,6 +455,10 @@ export class ExerciseComponent implements OnInit {
       })
     })
   }
+
+  _tomRomaji(v:string){
+    return toRomaji(v)
+  }
 }
 
 
