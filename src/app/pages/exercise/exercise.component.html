@@ -145,7 +145,7 @@
       </div>   
     </div>
     <div class="p-3 rounded-md bg-black text-white" *ngIf="yomi != ''">
-       {{yomi}}
+       <p>{{yomi}}</p>
     </div>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
