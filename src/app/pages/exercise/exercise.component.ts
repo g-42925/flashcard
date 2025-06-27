@@ -1,4 +1,5 @@
 import { shuffle } from 'lodash'
+import { toRomaji } from 'wanakana'
 import { ActivatedRoute,Router } from '@angular/router'
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -444,7 +445,7 @@ export class ExerciseComponent implements OnInit {
             {
               kanji:c,
               kunyomi:r.kun_readings,
-              onyomi:r.on_readings
+              onyommi:r.on_readings
             }
           ]
         },
