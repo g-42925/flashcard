@@ -144,7 +144,7 @@
         </button>   
       </div>      
     </div>
-    <div class="bg-black text-white p-3 rounded-md flex-flex-col" *ngIf="yomi.length > 0">
+    <div class="bg-black text-white p-3 rounded-md flex-flex-row" *ngIf="yomi.length > 0">
       @for(y of yomi; track y){
         <span>{{y.kanji}}</span>
         @for(ky of y.kunyomi; track ky){
