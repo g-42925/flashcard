@@ -131,12 +131,9 @@
         </span>
       </div>
       <div class="flex-1 bg-black flex flex-col justify-center text-center relative p-10">
-        <div class="flex flex-row bg-blue-900 justify-center">
-          @for(i of words[index].original.split(''); track i){
-            <span class="text-white text-8xl bg-red-900" (click)="kunOnMode=!kunOnMode">
-              {{i}}
-            </span>
-          }
+        <span class="text-white text-8xl" (click)="kunOnMode=!kunOnMode">
+           words[index].original
+        </span>
         </div>
         <span class="absolute top-5 left-5 text-white">
           {{index+1}} / {{words.length}} (<span class="font-bold">{{forgottenWords.length > 0 ? forgottenWords.length:0}}</span>)
