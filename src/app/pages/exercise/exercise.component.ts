@@ -49,7 +49,7 @@ export class ExerciseComponent implements OnInit {
   inDeletingProcess = false
   inUpdateProcess = false
   kunOnMode = false
-  yomi:any[] = []
+  yomi = ''
 
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
@@ -435,19 +435,17 @@ export class ExerciseComponent implements OnInit {
   }
 
   yomikataFetch(v:string){
-    this.yomi = []
+    this.yomi = ''
     var chars = v.split('')
     chars.forEach(c => {
       this.http.get<any>(`https://kanjiapi.dev/v1/kanji/${c}`).subscribe({
         next: r => {
-          this.yomi = [
-            ...this.yomi,
-            {
-              kanji:c,
-              kunyomi:r.kun_readings,
-              onyomi:r.on_readings
-            }
-          ]
+          if(this.yomi != ''){
+            this.yomi = `${this.yomi}${r.kanji} - kunyomi: ${r.kun_readings.join(',')} onyomi: ${r.on_readings.join(',')}`
+          }
+          else{
+            this.yomi = `${r.kanji} - kunyomi: ${r.kun_readings.join(',')} onyomi: ${r.on_readings.join(',')}\n`
+          }
         },
         error:err => {
           alert(err.message)
