@@ -145,30 +145,6 @@
       </div> 
       <div>  
     </div>
-    <div class="flex-1 {{yomi.length < 1 ? 'flex flex-col justify-center text-center':''}}">
-      <table class="min-w-full border border-gray-200 shadow-md overflow-hidden" *ngIf="yomi.length > 0">
-        <thead class="text-gray-700">
-          <tr>
-            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Kanji</th>        
-            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Kunyomi</th>
-            <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Onyomi</th>
-          </tr>
-        </thead>
-        <tbody class="text-gray-800">
-          @for(y of yomi; track y){
-            <tr class="border-t border-gray-200 hover:bg-gray-50">
-              <td class="px-6 py-4 text-center">{{y.kanji}}</td>        
-              <td class="text-center">{{y.kunyomi.join('|')}}</td>
-              <td class="px-6 py-4 text-center">{{y.onyomi.join('')}}</td>
-            </tr> 
-          }
-       </tbody>
-      </table>
-
-      <span class="text-white" *ngIf="yomi.length < 1">
-      	Get more information!
-      </span>
-    </div>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
