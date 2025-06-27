@@ -441,10 +441,10 @@ export class ExerciseComponent implements OnInit {
       this.http.get<any>(`https://kanjiapi.dev/v1/kanji/${c}`).subscribe({
         next: r => {
           if(this.yomi != ''){
-            this.yomi = `${this.yomi}||${r.kanji} - kunyomi: ${toRomaji(r.kun_readings.join(','))} onyomi: ${toRomaji(r.on_readings.join(','))}`
+            this.yomi = `${this.yomi}||${r.kanji} - kunyomi: ${toRomaji(r.kun_readings.join(','))} | onyomi: ${toRomaji(r.on_readings.join(','))}`
           }
           else{
-            this.yomi = `${r.kanji} - kunyomi: ${toRomaji(r.kun_readings.join(','))} onyomi: ${toRomaji(r.on_readings.join(','))}`
+            this.yomi = `${r.kanji} - kunyomi: ${toRomaji(r.kun_readings.join(','))} | onyomi: ${toRomaji(r.on_readings.join(','))}`
           }
         },
         error:err => {
