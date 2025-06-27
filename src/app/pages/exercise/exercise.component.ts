@@ -443,8 +443,8 @@ export class ExerciseComponent implements OnInit {
             ...this.yomi,
             {
               kanji:w,
-              kunyomi:r.kun_readings,
-              onyomi:r.on_readings
+              kunreading:r.kun_readings,
+              onreading:r.on_readings
             }
           ]
         },
@@ -453,26 +453,6 @@ export class ExerciseComponent implements OnInit {
         }
       })
     })
-
-
-
-    this.http.get<any[]>(this.source,{headers,withCredentials:true}).subscribe(r => {
-      if(this.exerciseMode === 'flashcard'){
-        this.words = shuffle(
-          r
-        )
-        this.updateValue = {
-          ...this.words[0]
-        }
-      }
-      if(this.exerciseMode === 'sentence'){
-        this. words = shuffle(r)
-
-        this.words.forEach(w => {
-          this.sentence = `${this.sentence}${w.original}`
-        })
-      }
-    });
   }
 }
 
