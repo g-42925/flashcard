@@ -145,6 +145,17 @@
       </div> 
       <div>  
     </div>
+    <div class="bg-black text-white p-3 rounded-md flex-flex-row" *ngIf="yomi.length > 0">
+      @for(y of yomi; track y){
+        <span>{{y.kanji}}</span>
+        @for(ky of y.kunyomi; track ky){
+          <span>{{ky}}</span>
+        }
+        @for(oy of y.onyomi; track oy){
+          <span>{{oy}}</span>
+        }
+      }
+    </div>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
@@ -211,7 +222,7 @@
     </form>
   </div>
 </div>
-<!--
+
 <div *ngIf="exerciseMode === 'sentence' && !quickSearchMode" class="h-screen bg-slate-300 flex flex-col justify-center">
   <div class="w-4/5 h-5/6 ml-auto mr-auto flex flex-row gap-3">
     <div class="flex-1 flex flex-col gap-3">
@@ -253,4 +264,3 @@
     </div>
   </div>
 </div>
--->
