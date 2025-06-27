@@ -144,9 +144,9 @@
         </button>   
       </div>   
     </div>
-    <div class="p-3 rounded-md bg-black text-white" *ngIf="yomi != ''">
+    <pre class="p-3 rounded-md bg-black text-white" *ngIf="yomi != ''">
        <p>{{yomi}}</p>
-    </div>
+    </pre>
     <div class="flex flex-row gap-3">
       <button [disabled]="index === 0" (click)="setNewIndex('previously')" class="bg-black rounded-full p-3">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 text-white">
