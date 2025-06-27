@@ -304,6 +304,7 @@ export class ExerciseComponent implements OnInit {
       var rule1 = !this.submitMode && !this.updateMode
       if(rule1 && !this.quickSearchMode){
         this.setNewIndex('next')
+        this.kunOnMode = false
       }
     }
 
@@ -436,6 +437,7 @@ export class ExerciseComponent implements OnInit {
 
   yomikataFetch(v:string){
     this.yomi = ''
+    this.kunOnMode = true
     var chars = v.split('')
     chars.forEach(c => {
       this.http.get<any>(`https://kanjiapi.dev/v1/kanji/${c}`).subscribe({

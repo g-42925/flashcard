@@ -144,7 +144,7 @@
         </button>   
       </div>   
     </div>
-    <div class="p-3 rounded-md bg-black text-white" *ngIf="yomi != ''">
+    <div class="p-3 rounded-md bg-black text-white" *ngIf="kunOnMode">
       @for(y of yomi.split('||'); track y){
       	<p>{{y}}</p>
       }
