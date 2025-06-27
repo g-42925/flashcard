@@ -131,9 +131,9 @@
         </span>
       </div>
       <div class="flex-1 bg-black flex flex-col justify-center text-center relative p-10">
-        <div class="flex flex-row text-center">
+        <div class="flex flex-row bg-blue-900">
           @for(i of words[index].original.split(''); track i){
-            <span class="text-white text-8xl bg-green-900" (click)="kunOnMode=!kunOnMode">
+            <span class="text-white text-8xl bg-red-900" (click)="kunOnMode=!kunOnMode">
               {{i}}
             </span>
           }
