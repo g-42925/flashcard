@@ -433,9 +433,9 @@ export class ExerciseComponent implements OnInit {
   	this.router.navigate(['/result'],{state:{state}})
   }
 
-  yomikataFetch(index:number){
+  yomikataFetch(v:string){
     this.yomi = []
-    this.words[index].original.split('').forEach(c => {
+    v.split('').forEach(c => {
       this.http.get<any>(`https://kanjiapi.dev/v1/kanji/${c}`).subscribe({
         next: r => {
           this.yomi = [
