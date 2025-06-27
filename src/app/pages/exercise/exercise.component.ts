@@ -445,7 +445,7 @@ export class ExerciseComponent implements OnInit {
             {
               kanji:c,
               kunyomi:r.kun_readings,
-              onyommi:r.on_readings
+              onyomi:r.on_readings
             }
           ]
         },
