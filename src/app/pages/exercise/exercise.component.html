@@ -146,11 +146,11 @@
     </div>
     <div class="bg-black text-white p-3 rounded-md flex-flex-col" *ngIf="yomi.length > 0">
       @for(y of yomi; track y){
-        <span>{{w.kanji}}</span>
-        @for(ky of y.kunyomi){
+        <span>{{y.kanji}}</span>
+        @for(ky of y.kunyomi; track ky){
           <span>{{ky}}</span>
         }
-        @for(oy of y.onyomi){
+        @for(oy of y.onyomi; track oy){
           <span>{{oy}}</span>
         }
       }

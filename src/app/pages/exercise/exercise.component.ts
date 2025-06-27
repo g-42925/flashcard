@@ -442,7 +442,7 @@ export class ExerciseComponent implements OnInit {
           this.yomi = [
             ...this.yomi,
             {
-              kanji:w,
+              kanji:c,
               kunreading:r.kun_readings,
               onreading:r.on_readings
             }
