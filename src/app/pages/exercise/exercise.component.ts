@@ -48,7 +48,8 @@ export class ExerciseComponent implements OnInit {
   inDeletingProcess = false
   inUpdateProcess = false
   kunOnMode = false
-  
+  yomi:any[] = []
+
 
   @ViewChild('sentenceRef') sentenceRef!: ElementRef<HTMLTextAreaElement>
 
@@ -430,6 +431,48 @@ export class ExerciseComponent implements OnInit {
   review(){
     var state = shuffle(this.forgottenWords)
   	this.router.navigate(['/result'],{state:{state}})
+  }
+
+  yomikataFetch(index:number){
+    this.yomi = []
+
+    this.words[index].split('').forEach(c => {
+      this.http.get<any>(`https://kanjiapi.dev/v1/kanji/${c}`).subscribe({
+        next: r => {
+          this.yomi = [
+            ...this.yomi,
+            {
+              kanji:w,
+              kunyomi:r.kun_readings,
+              onyomi:r.on_readings
+            }
+          ]
+        },
+        e:err => {
+          alert(err.message)
+        }
+      })
+    })
+
+
+
+    this.http.get<any[]>(this.source,{headers,withCredentials:true}).subscribe(r => {
+      if(this.exerciseMode === 'flashcard'){
+        this.words = shuffle(
+          r
+        )
+        this.updateValue = {
+          ...this.words[0]
+        }
+      }
+      if(this.exerciseMode === 'sentence'){
+        this. words = shuffle(r)
+
+        this.words.forEach(w => {
+          this.sentence = `${this.sentence}${w.original}`
+        })
+      }
+    });
   }
 }
 
