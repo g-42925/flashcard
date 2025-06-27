@@ -448,7 +448,7 @@ export class ExerciseComponent implements OnInit {
             }
           ]
         },
-        e:err => {
+        error:err => {
           alert(err.message)
         }
       })
