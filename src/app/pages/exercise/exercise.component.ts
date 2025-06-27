@@ -443,8 +443,8 @@ export class ExerciseComponent implements OnInit {
             ...this.yomi,
             {
               kanji:c,
-              kunreading:r.kun_readings,
-              onreading:r.on_readings
+              onyomi:r.kun_readings,
+              onyomi:r.on_readings
             }
           ]
         },
