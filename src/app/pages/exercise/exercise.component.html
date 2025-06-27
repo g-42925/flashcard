@@ -164,7 +164,7 @@
       <button (click)="skip(index-1)"class="p-3 flex-1 rounded-md bg-black text-white">
         Pass!
       </button>
-      <button (click)="yomikataFetch(index)" class="p-3 flex-1 rounded-md bg-black text-white">
+      <button (click)="yomikataFetch(words[index].original)" class="p-3 flex-1 rounded-md bg-black text-white">
         Yomikata
       </button>      
       <button class="bg-black rounded-full p-3" (click)="setNewIndex('next')">
