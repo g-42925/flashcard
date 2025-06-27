@@ -144,15 +144,15 @@
         </button>   
       </div>
     <div class="flex-1 {{yomi.length < 1 ? 'flex flex-col justify-center text-center':''}}">
-      <table class="min-w-full border border-gray-200 shadow-md overflow-hidden text-white" *ngIf="yomi.length > 0">
-        <thead class="text-gray-700">
+      <table class="min-w-full border border-gray-200 shadow-md overflow-hidden" *ngIf="yomi.length > 0">
+        <thead class="text-white">
           <tr>
             <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Kanji</th>        
             <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Kunyomi</th>
             <th class="text-center px-6 py-3 text-sm font-semibold uppercase">Onyomi</th>
           </tr>
         </thead>
-        <tbody class="text-gray-800">
+        <tbody class="text-white">
           @for(y of yomi; track y){
             <tr class="border-t border-gray-200 hover:bg-gray-50">
               <td class="px-6 py-4 text-center">{{y.kanji}}</td>        
