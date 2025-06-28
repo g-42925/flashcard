@@ -245,9 +245,7 @@ export class ExerciseComponent implements OnInit {
 
     this.http.get<any[]>(this.source,{headers,withCredentials:true}).subscribe(r => {
       if(this.exerciseMode === 'flashcard'){
-        this.words = shuffle(
-          r
-        )
+        this.words = r
         this.updateValue = {
           ...this.words[0]
         }
